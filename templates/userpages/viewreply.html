@@ -1,0 +1,564 @@
+{#{% extends 'userpages/uindex.html' %}#}
+{#{% block body %}#}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#  <meta charset="UTF-8">#}
+{#  <title>View Complaints</title>#}
+{#  <!-- Bootstrap 5 CSS -->#}
+{#  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">#}
+{#  <!-- DataTables CSS -->#}
+{#  <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">#}
+{#</head>#}
+{#<body>#}
+{#  <div class="container mt-5">#}
+{#    <h3 class="mb-4">View reply</h3>#}
+{##}
+{#    <!-- Date Filter Inputs -->#}
+{#    <div class="row mb-3">#}
+{#      <div class="col-md-4">#}
+{#        <label for="fromDate" class="form-label">From Date</label>#}
+{#        <input type="date" id="fromDate" class="form-control">#}
+{#      </div>#}
+{#      <div class="col-md-4">#}
+{#        <label for="toDate" class="form-label">To Date</label>#}
+{#        <input type="date" id="toDate" class="form-control">#}
+{#      </div>#}
+{#    </div>#}
+{##}
+{#    <!-- Complaints Table -->#}
+{#    <div class="table-responsive">#}
+{#      <table class="table table-bordered table-hover" id="complaintTable">#}
+{#        <thead class="table-light">#}
+{#          <tr>#}
+{#            <th>Sl. No.</th>#}
+{#            <th>Date</th>#}
+{#            <th>From</th>#}
+{#            <th>Complaint</th>#}
+{#            <th>Status</th>#}
+{#            <th>Replay</th>#}
+{#          </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#       {% for i in data %}#}
+{#          <tr>#}
+{#            <td>{{ forloop.counter }}</td>#}
+{#            <td>{{ i.date }}</td>#}
+{#            <td>{{ i.USERS.name }}</td>#}
+{#            <td>{{ i.complaint }}</td>#}
+{#            <td>{{ i.status }}</td>#}
+{#            <td>{{ i.replay }}</td>#}
+{##}
+{##}
+{#          </tr>#}
+{#        {% endfor %}  <!-- Add more rows as needed -->#}
+{#        </tbody>#}
+{#      </table>#}
+{#    </div>#}
+{#  </div>#}
+{##}
+{#  <!-- Scripts -->#}
+{#  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>#}
+{#  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>#}
+{#  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>#}
+{##}
+{##}
+{#    {% block scripts %}#}
+{#  <script>#}
+{#    // Extend DataTables with custom date filtering#}
+{#    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {#}
+{#      const min = document.getElementById('fromDate').value;#}
+{#      const max = document.getElementById('toDate').value;#}
+{#      const dateStr = data[1]; // Date is column index 1#}
+{#      const date = new Date(dateStr);#}
+{##}
+{#      const minDate = min ? new Date(min) : null;#}
+{#      const maxDate = max ? new Date(max) : null;#}
+{##}
+{#      if ((!minDate || date >= minDate) && (!maxDate || date <= maxDate)) {#}
+{#        return true;#}
+{#      }#}
+{#      return false;#}
+{#    });#}
+{##}
+{#    // Initialize DataTable and bind filter events#}
+{#    $(document).ready(function () {#}
+{#      const table = $('#complaintTable').DataTable({#}
+{#        pageLength: 5#}
+{#      });#}
+{##}
+{#      $('#fromDate, #toDate').on('change', function () {#}
+{#        table.draw();#}
+{#      });#}
+{#    });#}
+{#  </script>#}
+{#</body>#}
+{#</html>#}
+{#            {% endblock %}#}
+{##}
+{#{% endblock %}#}
+
+
+{#{% extends 'userpages/uindex.html' %}#}
+{##}
+{#{% block body %}#}
+{#<style>#}
+{#    /* --- TERMINAL DASHBOARD STYLE --- */#}
+{#    .log-terminal {#}
+{#        background: #1e293b; /* Card Dark */#}
+{#        border: 1px solid rgba(6, 182, 212, 0.2);#}
+{#        border-radius: 12px;#}
+{#        padding: 30px;#}
+{#        margin-top: 40px;#}
+{#        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);#}
+{#    }#}
+{##}
+{#    .terminal-title {#}
+{#        color: #fff;#}
+{#        font-weight: 800;#}
+{#        letter-spacing: 3px;#}
+{#        text-transform: uppercase;#}
+{#        border-left: 4px solid #06b6d4;#}
+{#        padding-left: 15px;#}
+{#        margin-bottom: 30px;#}
+{#    }#}
+{##}
+{#    /* --- QUERY FILTERS --- */#}
+{#    .filter-label {#}
+{#        font-family: 'Courier New', monospace;#}
+{#        font-size: 0.7rem;#}
+{#        color: #8b5cf6; /* Neon Violet */#}
+{#        text-transform: uppercase;#}
+{#        letter-spacing: 1px;#}
+{#    }#}
+{##}
+{#    .cyber-date-input {#}
+{#        background: #0f172a !important;#}
+{#        border: 1px solid #334155 !important;#}
+{#        color: #06b6d4 !important;#}
+{#        border-radius: 4px;#}
+{#        font-size: 0.85rem;#}
+{#    }#}
+{##}
+{#    /* --- LOG TABLE UI --- */#}
+{#    .log-table {#}
+{#        color: #e2e8f0 !important;#}
+{#        margin-top: 20px;#}
+{#        border-collapse: separate;#}
+{#        border-spacing: 0 5px;#}
+{#    }#}
+{##}
+{#    .log-table thead th {#}
+{#        background: rgba(15, 23, 42, 0.8) !important;#}
+{#        color: #94a3b8 !important;#}
+{#        font-family: 'Courier New', monospace;#}
+{#        font-size: 0.7rem;#}
+{#        text-transform: uppercase;#}
+{#        border: none !important;#}
+{#        padding: 15px !important;#}
+{#    }#}
+{##}
+{#    .log-table tbody tr {#}
+{#        background: rgba(255, 255, 255, 0.02);#}
+{#        transition: 0.3s ease;#}
+{#    }#}
+{##}
+{#    .log-table tbody tr:hover {#}
+{#        background: rgba(6, 182, 212, 0.05);#}
+{#    }#}
+{##}
+{#    .log-table td {#}
+{#        border: none !important;#}
+{#        vertical-align: middle;#}
+{#        padding: 15px !important;#}
+{#        font-size: 0.85rem;#}
+{#    }#}
+{##}
+{#    /* Status Glows */#}
+{#    .status-badge {#}
+{#        font-size: 0.7rem;#}
+{#        font-weight: 800;#}
+{#        text-transform: uppercase;#}
+{#        padding: 4px 10px;#}
+{#        border-radius: 4px;#}
+{#        border: 1px solid;#}
+{#    }#}
+{#    .status-pending { color: #f59e0b; border-color: #f59e0b; background: rgba(245, 158, 11, 0.1); }#}
+{#    .status-replied { color: #10b981; border-color: #10b981; background: rgba(16, 185, 129, 0.1); }#}
+{##}
+{#    .reply-text {#}
+{#        color: #06b6d4;#}
+{#        font-style: italic;#}
+{#        font-family: 'Courier New', monospace;#}
+{#    }#}
+{##}
+{#    /* Pagination Styling */#}
+{#    .dataTables_wrapper .dataTables_paginate .paginate_button {#}
+{#        color: #94a3b8 !important;#}
+{#        background: transparent !important;#}
+{#        border: 1px solid #334155 !important;#}
+{#        margin: 0 3px;#}
+{#    }#}
+{#    .dataTables_wrapper .dataTables_paginate .paginate_button.current {#}
+{#        border-color: #06b6d4 !important;#}
+{#        color: #06b6d4 !important;#}
+{#    }#}
+{#</style>#}
+{##}
+{#<div class="container-fluid px-5 py-4">#}
+{#    <div class="log-terminal wow fadeIn">#}
+{#        <h3 class="terminal-title">Incident_Response_Logs</h3>#}
+{##}
+{#        <div class="row g-3 mb-4 p-3 rounded" style="background: rgba(15, 23, 42, 0.4);">#}
+{#            <div class="col-md-3">#}
+{#                <label for="fromDate" class="filter-label"><i class="bi bi-calendar-event me-2"></i>Range_Start</label>#}
+{#                <input type="date" id="fromDate" class="form-control cyber-date-input">#}
+{#            </div>#}
+{#            <div class="col-md-3">#}
+{#                <label for="toDate" class="filter-label"><i class="bi bi-calendar-check me-2"></i>Range_End</label>#}
+{#                <input type="date" id="toDate" class="form-control cyber-date-input">#}
+{#            </div>#}
+{#            <div class="col-md-6 d-flex align-items-end justify-content-end">#}
+{#                <span class="text-muted small font-monospace">LOG_ACCESS_LEVEL: AUTHORIZED_USER</span>#}
+{#            </div>#}
+{#        </div>#}
+{##}
+{#        <div class="table-responsive">#}
+{#            <table class="table log-table" id="complaintTable">#}
+{#                <thead>#}
+{#                    <tr>#}
+{#                        <th>SEQ_ID</th>#}
+{#                        <th>Timestamp</th>#}
+{#                        <th>Node_Origin</th>#}
+{#                        <th>Incident_Report</th>#}
+{#                        <th>Status</th>#}
+{#                        <th>Response_Data</th>#}
+{#                    </tr>#}
+{#                </thead>#}
+{#                <tbody>#}
+{#                    {% for i in data %}#}
+{#                    <tr>#}
+{#                        <td class="text-muted font-monospace">#{{ forloop.counter }}</td>#}
+{#                        <td class="small">{{ i.date }}</td>#}
+{#                        <td class="text-white fw-bold">{{ i.USERS.name }}</td>#}
+{#                        <td class="text-wrap" style="max-width: 300px;">{{ i.complaint }}</td>#}
+{#                        <td>#}
+{#                            {% if i.status|lower == 'pending' %}#}
+{#                                <span class="status-badge status-pending">In_Progress</span>#}
+{#                            {% else %}#}
+{#                                <span class="status-badge status-replied">Resolved</span>#}
+{#                            {% endif %}#}
+{#                        </td>#}
+{#                        <td class="reply-text">#}
+{#                            {% if i.replay %}#}
+{#                                <i class="bi bi-reply-all me-1"></i>{{ i.replay }}#}
+{#                            {% else %}#}
+{#                                <span class="text-muted opacity-50">awaiting_input...</span>#}
+{#                            {% endif %}#}
+{#                        </td>#}
+{#                    </tr>#}
+{#                    {% endfor %}#}
+{#                </tbody>#}
+{#            </table>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+{##}
+{#{% block scripts %}#}
+{#<script>#}
+{#    // Custom DataTables Filter for Dark Theme#}
+{#    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {#}
+{#      const min = $('#fromDate').val();#}
+{#      const max = $('#toDate').val();#}
+{#      const dateStr = data[1];#}
+{#      const date = new Date(dateStr);#}
+{##}
+{#      const minDate = min ? new Date(min) : null;#}
+{#      const maxDate = max ? new Date(max) : null;#}
+{##}
+{#      if ((!minDate || date >= minDate) && (!maxDate || date <= maxDate)) {#}
+{#        return true;#}
+{#      }#}
+{#      return false;#}
+{#    });#}
+{##}
+{#    $(document).ready(function () {#}
+{#      const table = $('#complaintTable').DataTable({#}
+{#        pageLength: 5,#}
+{#        "dom": '<"top"f>rt<"bottom"lp><"clear">',#}
+{#        "language": {#}
+{#            "search": "_INPUT_",#}
+{#            "searchPlaceholder": "Filter Log Files..."#}
+{#        }#}
+{#      });#}
+{##}
+{#      $('#fromDate, #toDate').on('change', function () {#}
+{#        table.draw();#}
+{#      });#}
+{#    });#}
+{#</script>#}
+{#{% endblock %}#}
+{##}
+{#{% endblock %}#}
+
+
+
+{% extends 'userpages/uindex.html' %}
+
+{% block body %}
+<style>
+    /* --- GLOBAL DARK OVERRIDE --- */
+    body, html {
+        background-color: #020617 !important; /* Force true black/midnight */
+        color: #10b981;
+    }
+
+    /* --- CRT SCANLINE & FLICKER EFFECT --- */
+    .vault-container::before {
+        content: " ";
+        display: block;
+        position: absolute;
+        top: 0; left: 0; bottom: 0; right: 0;
+        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+                    linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+        z-index: 5;
+        background-size: 100% 3px, 3px 100%;
+        pointer-events: none;
+        opacity: 0.2;
+    }
+
+    /* Moving scanline */
+    .vault-container::after {
+        content: "";
+        position: absolute;
+        top: -100%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(16, 185, 129, 0) 0%, rgba(16, 185, 129, 0.05) 50%, rgba(16, 185, 129, 0) 100%);
+        animation: scanline 8s linear infinite;
+        z-index: 4;
+        pointer-events: none;
+    }
+
+    @keyframes scanline {
+        0% { top: -100%; }
+        100% { top: 100%; }
+    }
+
+    /* --- VAULT MAIN FRAME --- */
+    .vault-container {
+        background: #050a13 !important; /* Deepest Navy */
+        border: 1px solid #10b981;
+        border-radius: 2px;
+        padding: 40px;
+        margin-top: 30px;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(16, 185, 129, 0.05);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .vault-header {
+        border-bottom: 1px solid #10b981;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+    }
+
+    .vault-header h2 {
+        color: #10b981;
+        font-family: 'Courier New', monospace;
+        font-weight: 900;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        text-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+    }
+
+    /* --- FORM CONTROLS --- */
+    .query-box {
+        background: rgba(16, 185, 129, 0.02);
+        padding: 25px;
+        border: 1px solid rgba(16, 185, 129, 0.1);
+        margin-bottom: 30px;
+    }
+
+    .query-label {
+        color: #64748b;
+        font-family: 'Courier New', monospace;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 8px;
+    }
+
+    .cyber-input {
+        background: #000000 !important;
+        border: 1px solid #334155 !important;
+        color: #10b981 !important;
+        font-family: 'Courier New', monospace;
+        border-radius: 0;
+        transition: all 0.3s;
+    }
+
+    .cyber-input:focus {
+        border-color: #10b981 !important;
+        box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+        outline: none;
+    }
+
+    /* --- TERMINAL TABLE --- */
+    .vault-table {
+        color: #cbd5e1 !important;
+        font-family: 'Courier New', monospace;
+    }
+
+    .vault-table thead th {
+        color: #06b6d4 !important; /* Cyan headers */
+        font-size: 0.8rem;
+        border-bottom: 1px solid #10b981 !important;
+        text-transform: uppercase;
+        background: transparent !important;
+    }
+
+    .vault-table tbody tr {
+        border-bottom: 1px solid rgba(51, 65, 85, 0.3) !important;
+        transition: background 0.2s;
+    }
+
+    .vault-table tbody tr:hover {
+        background: rgba(16, 185, 129, 0.05) !important;
+    }
+
+    .vault-table td {
+        padding: 18px 12px !important;
+        background: transparent !important;
+    }
+
+    /* --- STATUS INDICATORS --- */
+    .status-tag {
+        font-size: 10px;
+        padding: 2px 8px;
+        border: 1px solid;
+        background: transparent;
+        text-transform: uppercase;
+    }
+    .status-pending { border-color: #f59e0b; color: #f59e0b; text-shadow: 0 0 5px #f59e0b; }
+    .status-resolved { border-color: #10b981; color: #10b981; text-shadow: 0 0 5px #10b981; }
+
+    /* DataTables specific fixes for Black Mode */
+    .dataTables_info, .dataTables_length, .dataTables_filter {
+        color: #64748b !important;
+        font-family: monospace;
+        font-size: 0.75rem;
+        margin-bottom: 15px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        color: #10b981 !important;
+        border: 1px solid #1e293b !important;
+    }
+</style>
+
+<div class="container-fluid px-5 py-4">
+    <div class="vault-container">
+
+        <div class="vault-header d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="mb-0">INCIDENT_RESPONSE_TERMINAL</h2>
+                <span class="text-muted font-monospace" style="font-size: 0.7rem;">STATUS: ENCRYPTED_CONNECTION_ESTABLISHED</span>
+            </div>
+            <div class="text-end">
+                <span class="badge border border-success text-success font-monospace">ACCESS: LEVEL_4</span>
+            </div>
+        </div>
+
+        <div class="query-box">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <label class="query-label">Log_Start_Point</label>
+                    <input type="date" id="fromDate" class="form-control cyber-input">
+                </div>
+                <div class="col-md-3">
+                    <label class="query-label">Log_End_Point</label>
+                    <input type="date" id="toDate" class="form-control cyber-input">
+                </div>
+                <div class="col-md-6 d-flex align-items-end justify-content-end">
+                    <div class="font-monospace text-info small">
+                        <i class="bi bi-cpu"></i> KERNEL_LOG_SCANNER_v4.2
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table id="complaintTable" class="table vault-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>TIME_STAMP</th>
+                        <th>ORIGIN_NODE</th>
+                        <th>REPORT_CONTENT</th>
+                        <th>STATUS</th>
+                        <th>SYSTEM_RESPONSE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data %}
+                    <tr>
+                        <td class="text-info font-monospace">#0{{ forloop.counter }}</td>
+                        <td class="small">{{ i.date }}</td>
+                        <td class="text-white fw-bold">{{ i.USERS.name }}</td>
+                        <td class="text-wrap" style="max-width: 300px; color: #94a3b8;">{{ i.complaint }}</td>
+                        <td>
+                            {% if i.status|lower == 'pending' %}
+                                <span class="status-tag status-pending">In_Progress</span>
+                            {% else %}
+                                <span class="status-tag status-resolved">Resolved</span>
+                            {% endif %}
+                        </td>
+                        <td class="font-monospace">
+                            {% if i.replay %}
+                                <span style="color: #06b6d4;"><i class="bi bi-terminal"></i> {{ i.replay }}</span>
+                            {% else %}
+                                <span class="opacity-25">-- awaiting_input --</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+<script>
+    // Ensure DataTable looks clean in Dark Mode
+    $(document).ready(function () {
+      const table = $('#complaintTable').DataTable({
+          "pageLength": 10,
+          "language": {
+              "search": "[SEARCH_DB]:",
+              "lengthMenu": "[LIMIT]: _MENU_"
+          }
+      });
+
+      $('#fromDate, #toDate').on('change', function () {
+        table.draw();
+      });
+    });
+
+    // Custom Date Range Filter
+    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+      let min = $('#fromDate').val();
+      let max = $('#toDate').val();
+      let dateCol = data[1];
+      if (!min && !max) return true;
+      const date = new Date(dateCol);
+      const minDate = min ? new Date(min) : null;
+      const maxDate = max ? new Date(max) : null;
+      return (!minDate || date >= minDate) && (!maxDate || date <= maxDate);
+    });
+</script>
+{% endblock %}
+
+{% endblock %}

@@ -1,0 +1,325 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#  <meta charset="UTF-8">#}
+{#  <title>Registration Form</title>#}
+{#  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">#}
+{##}
+{#</head>#}
+{#<body>#}
+{#  <div class="container">#}
+{#    <h2 class="mb-4">Registration Form</h2>#}
+{#    <form>#}
+{#      <div class="row mb-3">#}
+{#        <label for="name" class="col-sm-4 ">Full Name</label>#}
+{#        <div class="col-sm-8">#}
+{#          <input type="text" class="form-control" id="name" required>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      <div class="row mb-3">#}
+{#        <label class="col-sm-4 ">Gender</label>#}
+{#        <div class="col-sm-8">#}
+{#          <div class="form-check form-check-inline">#}
+{#            <input class="form-check-input" type="radio" name="gender" value="male" id="male" required>#}
+{#            <label class="form-check-label" for="male">Male</label>#}
+{#          </div>#}
+{#          <div class="form-check form-check-inline">#}
+{#            <input class="form-check-input" type="radio" name="gender" id="female" value="female" required>#}
+{#            <label class="form-check-label" for="female">Female</label>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      <div class="row mb-3">#}
+{#        <label for="dob" class="col-sm-4 ">Date of Birth</label>#}
+{#        <div class="col-sm-8">#}
+{#          <input type="date" class="form-control" id="dob" required>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      <div class="row mb-3">#}
+{#        <label for="email" class="col-sm-4 ">Email address</label>#}
+{#        <div class="col-sm-8">#}
+{#          <input type="email" class="form-control" id="email" required>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      <div class="row mb-3">#}
+{#        <label for="phone" class="col-sm-4 ">Phone Number</label>#}
+{#        <div class="col-sm-8">#}
+{#          <input type="tel" pattern="[0-9]{10}" class="form-control" id="phone" required>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      <div class="row mb-3">#}
+{#        <label for="place" class="col-sm-4 ">Place</label>#}
+{#        <div class="col-sm-8">#}
+{#          <input type="text" class="form-control" id="place" required>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      <div class="row mb-3">#}
+{#        <label for="city" class="col-sm-4 ">City</label>#}
+{#        <div class="col-sm-8">#}
+{#          <input type="text" class="form-control" id="city" required>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      <div class="row mb-3">#}
+{#        <label for="state" class="col-sm-4 ">State</label>#}
+{#        <div class="col-sm-8">#}
+{#          <input type="text" class="form-control" id="state" required>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      <div class="row mb-3">#}
+{#        <label for="pincode" class="col-sm-4 ">Pincode</label>#}
+{#        <div class="col-sm-8">#}
+{#          <input type="text" pattern="[0-9]{6}" class="form-control" id="pincode" required>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      <div class="row mb-3">#}
+{#        <label for="photo" class="col-sm-4 ">Upload Photo</label>#}
+{#        <div class="col-sm-8">#}
+{#          <input type="file" class="form-control" id="photo" accept="image/*" required>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      <div class="row mb-3">#}
+{#        <label for="password" class="col-sm-4 ">Password</label>#}
+{#        <div class="col-sm-8">#}
+{#          <input type="password" class="form-control" id="password" minlength="6" required>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      <div class="row mb-3">#}
+{#        <label for="confirmPassword" class="col-sm-4 ">Confirm Password</label>#}
+{#        <div class="col-sm-8">#}
+{#          <input type="password" class="form-control" id="confirmPassword" required>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      <div class="row mb-3">#}
+{#        <div class="offset-sm-4 col-sm-8">#}
+{#          <button type="submit" class="btn btn-primary">Signup</button>#}
+{#        </div>#}
+{#      </div>#}
+{#    </form>#}
+{#  </div>#}
+{#  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>#}
+{#</body>#}
+{#</html>#}
+
+
+
+{% extends 'userpages/uindex.html' %}
+
+{% block body %}
+<style>
+    /* --- 1. TOTAL DARK MODE RESET --- */
+    body, html, .main-panel, .content-wrapper, .container-scroller {
+        background-color: #000000 !important;
+        background: #000000 !important;
+        color: #10b981 !important;
+        font-family: 'Courier New', monospace;
+    }
+
+    /* --- 2. TERMINAL CONTAINER --- */
+    .reg-terminal {
+        max-width: 750px;
+        margin: 40px auto;
+        background: #020617 !important; /* Deepest Midnight */
+        border: 1px solid #10b981;
+        padding: 50px 40px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 1), inset 0 0 20px rgba(16, 185, 129, 0.05);
+    }
+
+    /* CRT Scanline Overlay */
+    .reg-terminal::before {
+        content: " ";
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+        background-size: 100% 4px;
+        z-index: 10;
+        pointer-events: none;
+        opacity: 0.15;
+    }
+
+    /* --- 3. TYPOGRAPHY & LABELS --- */
+    .terminal-title {
+        color: #fff;
+        font-weight: 900;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        text-align: center;
+        margin-bottom: 40px;
+        text-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+    }
+
+    .cyber-label {
+        color: #06b6d4; /* Cyan for labels */
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: bold;
+    }
+
+    /* --- 4. INPUT STYLING --- */
+    .cyber-input {
+        background: #000 !important;
+        border: 1px solid #334155 !important;
+        color: #10b981 !important;
+        border-radius: 0 !important;
+        padding: 12px;
+        font-family: monospace;
+        transition: 0.3s;
+    }
+
+    .cyber-input:focus {
+        border-color: #10b981 !important;
+        box-shadow: 0 0 15px rgba(16, 185, 129, 0.2) !important;
+        outline: none;
+    }
+
+    /* Custom Radio Buttons */
+    .form-check-input {
+        background-color: #000 !important;
+        border-color: #10b981 !important;
+    }
+    .form-check-input:checked {
+        background-color: #10b981 !important;
+        border-color: #10b981 !important;
+    }
+    .form-check-label {
+        color: #10b981;
+        font-size: 0.85rem;
+    }
+
+    /* --- 5. ACTION BUTTON --- */
+    .btn-initialize {
+        width: 100%;
+        background: transparent;
+        border: 1px solid #10b981;
+        color: #10b981;
+        padding: 18px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        margin-top: 30px;
+        transition: 0.4s;
+        position: relative;
+        z-index: 20;
+    }
+
+    .btn-initialize:hover {
+        background: #10b981;
+        color: #000;
+        box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
+    }
+
+    /* Header Metadata */
+    .terminal-hud {
+        position: absolute;
+        top: 0; left: 0; width: 100%;
+        font-size: 9px;
+        padding: 5px 20px;
+        background: rgba(16, 185, 129, 0.05);
+        border-bottom: 1px solid rgba(16, 185, 129, 0.1);
+        color: #10b981;
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
+
+<div class="container-fluid py-5">
+    <div class="reg-terminal wow fadeIn">
+        <div class="terminal-hud">
+            <span>OBJECT_ID: NEW_USER_REG</span>
+            <span>ENCRYPTION: AES_256_ACTIVE</span>
+            <span>STATUS: AUTH_PENDING</span>
+        </div>
+
+        <h2 class="terminal-title">Sector_Access_Form</h2>
+
+        <form action="/myapp/registration_post/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="row g-4">
+                <div class="col-md-12">
+                    <label class="cyber-label">[01] FULL_NAME_STRING</label>
+                    <input type="text" name="name" class="form-control cyber-input" placeholder="ENTER_IDENTITY..." required>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="cyber-label">[02] BIOMETRIC_GENDER</label>
+                    <div class="mt-2">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" value="male" id="male" checked>
+                            <label class="form-check-label" for="male">MALE</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+                            <label class="form-check-label" for="female">FEMALE</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="cyber-label">[03] TEMPORAL_ORIGIN (DOB)</label>
+                    <input type="date" name="dob" class="form-control cyber-input" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="cyber-label">[04] COMM_LINK_EMAIL</label>
+                    <input type="email" name="email" class="form-control cyber-input" placeholder="NAME@SECURE.NET" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="cyber-label">[05] UPLINK_NODE (PHONE)</label>
+                    <input type="tel" name="phone" pattern="[0-9]{10}" class="form-control cyber-input" placeholder="000-000-0000" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="cyber-label">[06] SECTOR (PLACE)</label>
+                    <input type="text" name="place" class="form-control cyber-input" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="cyber-label">[07] GRID_CITY</label>
+                    <input type="text" name="city" class="form-control cyber-input" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="cyber-label">[08] REGION_STATE</label>
+                    <input type="text" name="state" class="form-control cyber-input" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="cyber-label">[09] AREA_CODE (PIN)</label>
+                    <input type="text" name="pincode" pattern="[0-9]{6}" class="form-control cyber-input" required>
+                </div>
+                <div class="col-md-8">
+                    <label class="cyber-label">[10] VISUAL_ID_FILE (PHOTO)</label>
+                    <input type="file" name="photo" class="form-control cyber-input" accept="image/*" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="cyber-label">[11] ACCESS_KEY (PASSWORD)</label>
+                    <input type="password" name="password" class="form-control cyber-input" minlength="6" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="cyber-label">[12] CONFIRM_KEY</label>
+                    <input type="password" name="confirmPassword" class="form-control cyber-input" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-initialize">
+                <i class="bi bi-shield-lock-fill me-2"></i> INITIALIZE_REGISTRATION
+            </button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

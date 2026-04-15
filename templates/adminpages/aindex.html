@@ -1,0 +1,1212 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{##}
+{#<head>#}
+{#    <meta charset="utf-8">#}
+{#    <title>CyberCamouflage | Elite Digital Defense</title>#}
+{#    <meta content="width=device-width, initial-scale=1.0" name="viewport">#}
+{#    <meta content="cyber security, encryption, steganography, zero trust" name="keywords">#}
+{#    <meta content="Next-generation concealment and threat detection system." name="description">#}
+{##}
+{#    <link href="img/favicon.ico" rel="icon">#}
+{##}
+{#    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">#}
+{#    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">#}
+{##}
+{#    <link rel="preconnect" href="https://fonts.googleapis.com">#}
+{#    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>#}
+{#    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">#}
+{##}
+{#    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">#}
+{#    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">#}
+{##}
+{#    <link href="/static/home/lib/animate/animate.min.css" rel="stylesheet">#}
+{#    <link href="/static/home/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">#}
+{#    <link href="/static/home/lib/lightbox/css/lightbox.min.css" rel="stylesheet">#}
+{##}
+{#    <link href="/static/home/css/bootstrap.min.css" rel="stylesheet">#}
+{#    <link href="/static/home/css/style.css" rel="stylesheet">#}
+{##}
+{#<style>#}
+{#    :root {#}
+{#        --bg-deep: #050a14;#}
+{#        --glass-bg: rgba(10, 15, 30, 0.65); /* Increased transparency for animation visibility */#}
+{#        --glass-border: rgba(124, 58, 237, 0.15);#}
+{#        --accent-primary: #8b5cf6; /* Violet */#}
+{#        --accent-glow: #06b6d4; /* Cyan */#}
+{#        --text-main: #f3f4f6;#}
+{#        --text-muted: #94a3b8;#}
+{#    }#}
+{##}
+{#    /* --- GLOBAL AESTHETICS --- */#}
+{#    body {#}
+{#        background-color: var(--bg-deep);#}
+{#        color: var(--text-main);#}
+{#        font-family: 'Inter', sans-serif;#}
+{#        overflow-x: hidden;#}
+{#        position: relative;#}
+{#        margin: 0;#}
+{#    }#}
+{##}
+{#    /* --- ANIMATED BACKGROUND CONTAINER --- */#}
+{#    #canvas-container {#}
+{#        position: fixed;#}
+{#        top: 0;#}
+{#        left: 0;#}
+{#        width: 100%;#}
+{#        height: 100%;#}
+{#        z-index: -2;#}
+{#        background-color: var(--bg-deep);#}
+{#        overflow: hidden;#}
+{#    }#}
+{##}
+{#    /* CRT Scanline Overlay - Gives it that "Monitor" feel */#}
+{#    .scanlines {#}
+{#        position: fixed;#}
+{#        top: 0;#}
+{#        left: 0;#}
+{#        width: 100%;#}
+{#        height: 100%;#}
+{#        z-index: -1;#}
+{#        background: linear-gradient(#}
+{#            to bottom,#}
+{#            rgba(255,255,255,0),#}
+{#            rgba(255,255,255,0) 50%,#}
+{#            rgba(0,0,0,0.2) 50%,#}
+{#            rgba(0,0,0,0.2)#}
+{#        );#}
+{#        background-size: 100% 4px;#}
+{#        pointer-events: none; /* Let clicks pass through */#}
+{#    }#}
+{##}
+{#    /* Vignette to focus center */#}
+{#    .vignette {#}
+{#        position: fixed;#}
+{#        top: 0;#}
+{#        left: 0;#}
+{#        width: 100%;#}
+{#        height: 100%;#}
+{#        z-index: -1;#}
+{#        background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.8) 100%);#}
+{#        pointer-events: none;#}
+{#    }#}
+{##}
+{#    h1, h2, h3, h4, h5 {#}
+{#        font-family: 'Rajdhani', sans-serif;#}
+{#        text-transform: uppercase;#}
+{#        letter-spacing: 1.5px;#}
+{#    }#}
+{##}
+{#    /* --- GLASSMORPHISM NAVBAR --- */#}
+{#    .navbar {#}
+{#        background: rgba(5, 10, 20, 0.85) !important;#}
+{#        backdrop-filter: blur(15px);#}
+{#        -webkit-backdrop-filter: blur(15px);#}
+{#        border-bottom: 1px solid var(--glass-border);#}
+{#        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);#}
+{#    }#}
+{##}
+{#    .navbar-brand h1 {#}
+{#        background: linear-gradient(45deg, #fff, var(--accent-glow));#}
+{#        -webkit-background-clip: text;#}
+{#        -webkit-text-fill-color: transparent;#}
+{#        font-weight: 700;#}
+{#        text-shadow: 0 0 20px rgba(6, 182, 212, 0.3);#}
+{#    }#}
+{##}
+{#    .nav-link {#}
+{#        color: var(--text-muted) !important;#}
+{#        transition: all 0.3s ease;#}
+{#        font-size: 0.85rem;#}
+{#        font-weight: 600;#}
+{#        text-transform: uppercase;#}
+{#        letter-spacing: 1px;#}
+{#    }#}
+{##}
+{#    .nav-link:hover, .nav-link.active {#}
+{#        color: var(--accent-glow) !important;#}
+{#        text-shadow: 0 0 8px rgba(6, 182, 212, 0.6);#}
+{#    }#}
+{##}
+{#    .dropdown-menu {#}
+{#        background: rgba(10, 15, 30, 0.95);#}
+{#        border: 1px solid var(--glass-border);#}
+{#        backdrop-filter: blur(10px);#}
+{#    }#}
+{#    .dropdown-item { color: var(--text-muted); }#}
+{#    .dropdown-item:hover { background: rgba(139, 92, 246, 0.2); color: white; }#}
+{##}
+{#    /* --- HERO SECTION --- */#}
+{#    .carousel-item {#}
+{#        height: 85vh;#}
+{#        min-height: 600px;#}
+{#        background: transparent;#}
+{#        position: relative;#}
+{#    }#}
+{##}
+{#    .carousel-caption {#}
+{#        background: transparent;#}
+{#        bottom: 30%;#}
+{#        z-index: 2;#}
+{#    }#}
+{##}
+{#    .display-1 {#}
+{#        font-size: 5.5rem;#}
+{#        font-weight: 700;#}
+{#        color: white;#}
+{#        text-shadow: 0 0 30px rgba(139, 92, 246, 0.5);#}
+{#    }#}
+{##}
+{#    /* --- GLASS CARDS (FEATURES) --- */#}
+{#    .top-feature {#}
+{#        position: relative;#}
+{#        z-index: 5;#}
+{#        margin-top: -100px;#}
+{#    }#}
+{##}
+{#    .top-feature .bg-white, .feature-card {#}
+{#        background: var(--glass-bg) !important;#}
+{#        backdrop-filter: blur(12px);#}
+{#        -webkit-backdrop-filter: blur(12px);#}
+{#        border: 1px solid var(--glass-border);#}
+{#        color: var(--text-main);#}
+{#        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);#}
+{#        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);#}
+{#    }#}
+{##}
+{#    .top-feature .bg-white:hover {#}
+{#        transform: translateY(-10px);#}
+{#        border-color: var(--accent-glow);#}
+{#        background: rgba(15, 23, 42, 0.8) !important;#}
+{#        box-shadow: 0 15px 30px rgba(6, 182, 212, 0.2);#}
+{#    }#}
+{##}
+{#    .top-feature h4 {#}
+{#        color: var(--accent-glow);#}
+{#        font-size: 1.2rem;#}
+{#        margin-bottom: 5px;#}
+{#    }#}
+{##}
+{#    .top-feature span {#}
+{#        font-size: 0.85rem;#}
+{#        color: var(--text-muted);#}
+{#    }#}
+{##}
+{#    /* --- CONTENT & UTILS --- */#}
+{#    #abc {#}
+{#        background: rgba(255, 255, 255, 0.01);#}
+{#        border-top: 1px solid var(--glass-border);#}
+{#        border-bottom: 1px solid var(--glass-border);#}
+{#        padding: 60px 0;#}
+{#    }#}
+{##}
+{#    .btn-outline-light, .btn-outline-primary {#}
+{#        position: relative;#}
+{#        overflow: hidden;#}
+{#        z-index: 1;#}
+{#        transition: all 0.3s;#}
+{#    }#}
+{##}
+{#    .btn-outline-primary {#}
+{#        border-color: var(--accent-primary);#}
+{#        color: var(--accent-primary);#}
+{#    }#}
+{##}
+{#    .btn-outline-primary:hover {#}
+{#        background: var(--accent-primary);#}
+{#        box-shadow: 0 0 20px rgba(139, 92, 246, 0.6);#}
+{#    }#}
+{##}
+{#    /* --- DATATABLES OVERRIDE --- */#}
+{#    .table {#}
+{#        color: var(--text-main) !important;#}
+{#        background-color: transparent !important;#}
+{#    }#}
+{#    .table thead th {#}
+{#        background-color: rgba(139, 92, 246, 0.15) !important;#}
+{#        color: var(--accent-glow) !important;#}
+{#        border-bottom: 1px solid var(--glass-border) !important;#}
+{#        text-transform: uppercase;#}
+{#        font-size: 0.85rem;#}
+{#        letter-spacing: 1px;#}
+{#    }#}
+{#    .table td {#}
+{#        border-color: rgba(255,255,255,0.05) !important;#}
+{#    }#}
+{#    .dataTables_wrapper .dataTables_length,#}
+{#    .dataTables_wrapper .dataTables_filter,#}
+{#    .dataTables_wrapper .dataTables_info,#}
+{#    .dataTables_wrapper .dataTables_paginate {#}
+{#        color: var(--text-muted) !important;#}
+{#    }#}
+{#    .page-link {#}
+{#        background: transparent;#}
+{#        border: 1px solid var(--glass-border);#}
+{#        color: var(--text-main);#}
+{#    }#}
+{#    .page-item.active .page-link {#}
+{#        background-color: var(--accent-primary);#}
+{#        border-color: var(--accent-primary);#}
+{#    }#}
+{##}
+{#</style>#}
+{##}
+{#</head>#}
+{#<body>#}
+{##}
+{#    <div id="canvas-container">#}
+{#        <canvas id="cyber-canvas"></canvas>#}
+{#    </div>#}
+{#    <div class="scanlines"></div>#}
+{#    <div class="vignette"></div>#}
+{##}
+{#    <div id="spinner" class="show position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center" style="background: var(--bg-deep); z-index: 9999;">#}
+{#        <div class="spinner-border" role="status" style="width: 3rem; height: 3rem; color: var(--accent-glow);"></div>#}
+{#    </div>#}
+{##}
+{#    <nav class="navbar navbar-expand-lg navbar-dark sticky-top p-0 px-4">#}
+{#        <a href="index.html" class="navbar-brand d-flex align-items-center">#}
+{#            <h1 class="m-0"><i class="bi bi-shield-check me-2"></i>CyberCamouflage</h1>#}
+{#        </a>#}
+{#        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">#}
+{#            <span class="navbar-toggler-icon"></span>#}
+{#        </button>#}
+{#        <div class="collapse navbar-collapse" id="navbarCollapse">#}
+{#            <div class="navbar-nav ms-auto p-4 p-lg-0">#}
+{#                <a href="/myapp/index_get/" class="nav-item nav-link active">Dashboard</a>#}
+{#                <a href="/myapp/viewuser_get/#abc" class="nav-item nav-link">Users</a>#}
+{#                <a href="/myapp/viewcomplaint_get/#abc" class="nav-item nav-link">Complaints</a>#}
+{#                <div class="nav-item dropdown">#}
+{#                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Secure Upload</a>#}
+{#                    <div class="dropdown-menu border-0 rounded-0 m-0">#}
+{#                        <a href="/myapp/admin_view_uploaded_file_get/#abc" class="dropdown-item">Encrypted Files</a>#}
+{#                        <a href="/myapp/admin_file_upload_get/#abc" class="dropdown-item">Upload New</a>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <a href="/myapp/logs_get/#abc" class="nav-item nav-link">Audit Logs</a>#}
+{#                <div class="nav-item dropdown">#}
+{#                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">System</a>#}
+{#                    <div class="dropdown-menu border-0 rounded-0 m-0">#}
+{#                        <a href="/myapp/change_password_get/#abc" class="dropdown-item">Credentials</a>#}
+{#                        <a href="/myapp/logout_get/#abc" class="dropdown-item">Terminate Session</a>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </nav>#}
+{#    <div class="container-fluid p-0 wow fadeIn" data-wow-delay="0.1s">#}
+{#        <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">#}
+{#            <div class="carousel-inner">#}
+{#                <div class="carousel-item active">#}
+{#                    <div class="carousel-caption">#}
+{#                        <div class="container">#}
+{#                            <div class="row justify-content-center">#}
+{#                                <div class="col-lg-8">#}
+{#                                    <div class="badge bg-primary bg-opacity-10 border border-primary text-primary mb-3 px-3 py-2 rounded-pill" style="backdrop-filter: blur(5px);">Access Granted</div>#}
+{#                                    <h1 class="display-1 mb-4 animated slideInDown">CyberVeil</h1>#}
+{#                                    <p class="fs-4 text-white-50">Advanced Steganographic Concealment & Threat Mitigation Protocol</p>#}
+{#                                    <a href="#abc" class="btn btn-outline-light rounded-0 py-3 px-5 mt-3">Initiate Scan</a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="carousel-item">#}
+{#                    <div class="carousel-caption">#}
+{#                        <div class="container">#}
+{#                            <div class="row justify-content-center">#}
+{#                                <div class="col-lg-8">#}
+{#                                    <div class="badge bg-info bg-opacity-10 border border-info text-info mb-3 px-3 py-2 rounded-pill" style="backdrop-filter: blur(5px);">System Secure</div>#}
+{#                                    <h1 class="display-1 mb-4 animated slideInDown">Invisible Defense</h1>#}
+{#                                    <p class="fs-4 text-white-50">Data obfuscation layer active. Your digital footprint is masked.</p>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <div class="container-fluid top-feature py-5 pt-lg-0">#}
+{#        <div class="container py-5 pt-lg-0">#}
+{#            <div class="row gx-4 gy-4">#}
+{#                <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.1s">#}
+{#                    <div class="bg-white d-flex align-items-center h-100 px-4 py-4 rounded-3">#}
+{#                        <div class="d-flex align-items-center">#}
+{#                            <i class="bi bi-eye-slash fs-1 me-3 text-primary"></i>#}
+{#                            <div>#}
+{#                                <h4>Deep Concealment</h4>#}
+{#                                <span>Steganographic hiding in A/V media.</span>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.3s">#}
+{#                    <div class="bg-white d-flex align-items-center h-100 px-4 py-4 rounded-3">#}
+{#                        <div class="d-flex align-items-center">#}
+{#                            <i class="bi bi-incognito fs-1 me-3" style="color: var(--accent-glow)"></i>#}
+{#                            <div>#}
+{#                                <h4>Identity Masking</h4>#}
+{#                                <span>IP/GPS Spoofing & MAC Randomization.</span>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.5s">#}
+{#                    <div class="bg-white d-flex align-items-center h-100 px-4 py-4 rounded-3">#}
+{#                        <div class="d-flex align-items-center">#}
+{#                            <i class="bi bi-shield-lock fs-1 me-3 text-primary"></i>#}
+{#                            <div>#}
+{#                                <h4>Vault Encryption</h4>#}
+{#                                <span>AES-256 System-level protection.</span>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.7s">#}
+{#                    <div class="bg-white d-flex align-items-center h-100 px-4 py-4 rounded-3">#}
+{#                        <div class="d-flex align-items-center">#}
+{#                            <i class="bi bi-radar fs-1 me-3" style="color: var(--accent-glow)"></i>#}
+{#                            <div>#}
+{#                                <h4>Intrusion Decoys</h4>#}
+{#                                <span>Active honeypots and threat alerting.</span>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <div class="container-xxl py-5" id="abc">#}
+{#        <div class="container">#}
+{#            {% block body %}#}
+{#            {% endblock %}#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <div class="container-fluid facts my-5 py-5 wow fadeIn" data-wow-delay="0.1s" style="border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); background: rgba(124, 58, 237, 0.03);">#}
+{#        <div class="container py-5">#}
+{#            <div class="row g-5">#}
+{#                <div class="col-sm-6 col-lg-4 text-center wow fadeIn" data-wow-delay="0.1s">#}
+{#                    <div class="mb-3"><i class="bi bi-bug fs-2 text-white-50"></i></div>#}
+{#                    <h1 class="display-4" data-toggle="counter-up">1,234</h1>#}
+{#                    <span class="fs-6 text-uppercase text-muted ls-1">Threats Neutralized</span>#}
+{#                </div>#}
+{#                <div class="col-sm-6 col-lg-4 text-center wow fadeIn" data-wow-delay="0.3s">#}
+{#                    <div class="mb-3"><i class="bi bi-activity fs-2 text-white-50"></i></div>#}
+{#                    <h1 class="display-4" data-toggle="counter-up">8,405</h1>#}
+{#                    <span class="fs-6 text-uppercase text-muted ls-1">Requests Processed</span>#}
+{#                </div>#}
+{#                <div class="col-sm-6 col-lg-4 text-center wow fadeIn" data-wow-delay="0.5s">#}
+{#                    <div class="mb-3"><i class="bi bi-file-earmark-check fs-2 text-white-50"></i></div>#}
+{#                    <h1 class="display-4" data-toggle="counter-up">590</h1>#}
+{#                    <span class="fs-6 text-uppercase text-muted ls-1">Integrity Reports</span>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <div class="container-xxl py-5">#}
+{#        <div class="container">#}
+{#            <div class="row g-5 align-items-center">#}
+{#                <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.1s">#}
+{#                    <h6 class="text-primary text-uppercase mb-2" style="letter-spacing: 2px;">System Architecture</h6>#}
+{#                    <h1 class="display-5 mb-4 text-white">Conceal Data Before It's Visible</h1>#}
+{#                    <p class="mb-4 text-white-50">"Your information stays invisible in plain sight. Our system detects, disguises, and defends your digital identity with precision — ensuring safety without disrupting your online experience."</p>#}
+{#                    <div class="d-flex align-items-center mt-4">#}
+{#                        <a class="btn btn-outline-primary rounded-0 py-3 px-5 me-3" href="">System Status</a>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>#}
+{#    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>#}
+{#    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>#}
+{##}
+{#    {% block scripts %}#}
+{#    {% endblock %}#}
+{##}
+{#    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>#}
+{#    <script src="/static/home/lib/wow/wow.min.js"></script>#}
+{#    <script src="/static/home/lib/easing/easing.min.js"></script>#}
+{#    <script src="/static/home/lib/waypoints/waypoints.min.js"></script>#}
+{#    <script src="/static/home/lib/owlcarousel/owl.carousel.min.js"></script>#}
+{#    <script src="/static/home/lib/counterup/counterup.min.js"></script>#}
+{#    <script src="/static/home/lib/parallax/parallax.min.js"></script>#}
+{#    <script src="/static/home/lib/isotope/isotope.pkgd.min.js"></script>#}
+{#    <script src="/static/home/lib/lightbox/js/lightbox.min.js"></script>#}
+{#    <script src="/static/home/js/main.js"></script>#}
+{##}
+{#    <script>#}
+{#        const canvas = document.getElementById('cyber-canvas');#}
+{#        const ctx = canvas.getContext('2d');#}
+{##}
+{#        let particlesArray;#}
+{#        let animationId;#}
+{##}
+{#        // Resize Canvas#}
+{#        canvas.width = window.innerWidth;#}
+{#        canvas.height = window.innerHeight;#}
+{##}
+{#        window.addEventListener('resize', () => {#}
+{#            canvas.width = window.innerWidth;#}
+{#            canvas.height = window.innerHeight;#}
+{#            init();#}
+{#        });#}
+{##}
+{#        // Mouse Interactivity#}
+{#        const mouse = {#}
+{#            x: null,#}
+{#            y: null,#}
+{#            radius: 150#}
+{#        }#}
+{##}
+{#        window.addEventListener('mousemove', (event) => {#}
+{#            mouse.x = event.x;#}
+{#            mouse.y = event.y;#}
+{#        });#}
+{##}
+{#        // Disable mouse interaction when leaving window#}
+{#        window.addEventListener('mouseout', () => {#}
+{#            mouse.x = undefined;#}
+{#            mouse.y = undefined;#}
+{#        });#}
+{##}
+{##}
+{#        // Create Particle#}
+{#        class Particle {#}
+{#            constructor(x, y, directionX, directionY, size, color) {#}
+{#                this.x = x;#}
+{#                this.y = y;#}
+{#                this.directionX = directionX;#}
+{#                this.directionY = directionY;#}
+{#                this.size = size;#}
+{#                this.color = color;#}
+{#            }#}
+{##}
+{#            // Draw individual particle#}
+{#            draw() {#}
+{#                ctx.beginPath();#}
+{#                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);#}
+{#                ctx.fillStyle = this.color;#}
+{#                ctx.fill();#}
+{#            }#}
+{##}
+{#            // Update particle position#}
+{#            update() {#}
+{#                // Check if particle is still within canvas#}
+{#                if (this.x > canvas.width || this.x < 0) {#}
+{#                    this.directionX = -this.directionX;#}
+{#                }#}
+{#                if (this.y > canvas.height || this.y < 0) {#}
+{#                    this.directionY = -this.directionY;#}
+{#                }#}
+{##}
+{#                // Mouse Collision Detection#}
+{#                let dx = mouse.x - this.x;#}
+{#                let dy = mouse.y - this.y;#}
+{#                let distance = Math.sqrt(dx * dx + dy * dy);#}
+{##}
+{#                if (distance < mouse.radius + this.size) {#}
+{#                    if (mouse.x < this.x && this.x < canvas.width - this.size * 10) {#}
+{#                        this.x += 2;#}
+{#                    }#}
+{#                    if (mouse.x > this.x && this.x > this.size * 10) {#}
+{#                        this.x -= 2;#}
+{#                    }#}
+{#                    if (mouse.y < this.y && this.y < canvas.height - this.size * 10) {#}
+{#                        this.y += 2;#}
+{#                    }#}
+{#                    if (mouse.y > this.y && this.y > this.size * 10) {#}
+{#                        this.y -= 2;#}
+{#                    }#}
+{#                }#}
+{##}
+{#                this.x += this.directionX;#}
+{#                this.y += this.directionY;#}
+{#                this.draw();#}
+{#            }#}
+{#        }#}
+{##}
+{#        // Initialize Particles#}
+{#        function init() {#}
+{#            particlesArray = [];#}
+{#            // Calculate number of particles based on screen size (prevent lag on mobile)#}
+{#            let numberOfParticles = (canvas.height * canvas.width) / 12000;#}
+{##}
+{#            for (let i = 0; i < numberOfParticles; i++) {#}
+{#                let size = (Math.random() * 2) + 1;#}
+{#                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);#}
+{#                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);#}
+{#                let directionX = (Math.random() * 1) - 0.5; // Speed#}
+{#                let directionY = (Math.random() * 1) - 0.5;#}
+{##}
+{#                // Color variation: mostly cyan/violet#}
+{#                let color = Math.random() > 0.5 ? 'rgba(6, 182, 212, 0.7)' : 'rgba(139, 92, 246, 0.7)';#}
+{##}
+{#                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));#}
+{#            }#}
+{#        }#}
+{##}
+{#        // Connect particles with lines#}
+{#        function connect() {#}
+{#            let opacityValue = 1;#}
+{#            for (let a = 0; a < particlesArray.length; a++) {#}
+{#                for (let b = a; b < particlesArray.length; b++) {#}
+{#                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +#}
+{#                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));#}
+{##}
+{#                    if (distance < (canvas.width / 7) * (canvas.height / 7)) {#}
+{#                        opacityValue = 1 - (distance / 20000);#}
+{#                        ctx.strokeStyle = 'rgba(124, 58, 237,' + opacityValue + ')'; // Violet lines#}
+{#                        ctx.lineWidth = 1;#}
+{#                        ctx.beginPath();#}
+{#                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);#}
+{#                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);#}
+{#                        ctx.stroke();#}
+{#                    }#}
+{#                }#}
+{#            }#}
+{#        }#}
+{##}
+{#        // Animation Loop#}
+{#        function animate() {#}
+{#            requestAnimationFrame(animate);#}
+{#            ctx.clearRect(0, 0, innerWidth, innerHeight);#}
+{##}
+{#            for (let i = 0; i < particlesArray.length; i++) {#}
+{#                particlesArray[i].update();#}
+{#            }#}
+{#            connect();#}
+{#        }#}
+{##}
+{#        // Start#}
+{#        init();#}
+{#        animate();#}
+{#    </script>#}
+{#</body>#}
+{#</html>#}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>CyberCamouflage | Elite Digital Defense</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="cyber security, encryption, steganography, zero trust" name="keywords">
+    <meta content="Next-generation concealment and threat detection system." name="description">
+
+    <link href="img/favicon.ico" rel="icon">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="/static/home/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/static/home/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/static/home/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <link href="/static/home/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/home/css/style.css" rel="stylesheet">
+
+<style>
+    :root {
+        --bg-deep: #050a14;
+        --glass-bg: rgba(10, 15, 30, 0.65); /* Increased transparency for animation visibility */
+        --glass-border: rgba(124, 58, 237, 0.15);
+        --accent-primary: #8b5cf6; /* Violet */
+        --accent-glow: #06b6d4; /* Cyan */
+        --text-main: #f3f4f6;
+        --text-muted: #94a3b8;
+    }
+
+    /* --- GLOBAL AESTHETICS --- */
+    body {
+        background-color: var(--bg-deep);
+        color: var(--text-main);
+        font-family: 'Inter', sans-serif;
+        overflow-x: hidden;
+        position: relative;
+        margin: 0;
+    }
+
+    /* --- ANIMATED BACKGROUND CONTAINER --- */
+    #canvas-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+        background-color: var(--bg-deep);
+        overflow: hidden;
+    }
+
+    /* CRT Scanline Overlay - Gives it that "Monitor" feel */
+    .scanlines {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: linear-gradient(
+            to bottom,
+            rgba(255,255,255,0),
+            rgba(255,255,255,0) 50%,
+            rgba(0,0,0,0.2) 50%,
+            rgba(0,0,0,0.2)
+        );
+        background-size: 100% 4px;
+        pointer-events: none; /* Let clicks pass through */
+    }
+
+    /* Vignette to focus center */
+    .vignette {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.8) 100%);
+        pointer-events: none;
+    }
+
+    h1, h2, h3, h4, h5 {
+        font-family: 'Rajdhani', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+    }
+
+    /* --- GLASSMORPHISM NAVBAR --- */
+    .navbar {
+        background: rgba(5, 10, 20, 0.85) !important;
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-bottom: 1px solid var(--glass-border);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar-brand h1 {
+        background: linear-gradient(45deg, #fff, var(--accent-glow));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 700;
+        text-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+    }
+
+    .nav-link {
+        color: var(--text-muted) !important;
+        transition: all 0.3s ease;
+        font-size: 0.85rem !important;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .nav-link:hover, .nav-link.active {
+        color: var(--accent-glow) !important;
+        text-shadow: 0 0 8px rgba(6, 182, 212, 0.6);
+    }
+
+    .dropdown-menu {
+        background: rgba(10, 15, 30, 0.95);
+        border: 1px solid var(--glass-border);
+        backdrop-filter: blur(10px);
+    }
+    .dropdown-item { color: var(--text-muted); }
+    .dropdown-item:hover { background: rgba(139, 92, 246, 0.2); color: white; }
+
+    /* --- HERO SECTION --- */
+    .carousel-item {
+        height: 85vh;
+        min-height: 600px;
+        background: transparent;
+        position: relative;
+    }
+
+    .carousel-caption {
+        background: transparent;
+        bottom: 30%;
+        z-index: 2;
+    }
+
+    .display-1 {
+        font-size: 5.5rem;
+        font-weight: 700;
+        color: white;
+        text-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+    }
+
+    /* --- GLASS CARDS (FEATURES) --- */
+    .top-feature {
+        position: relative;
+        z-index: 5;
+        margin-top: -100px;
+    }
+
+    .top-feature .bg-white, .feature-card {
+        background: var(--glass-bg) !important;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--glass-border);
+        color: var(--text-main);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    .top-feature .bg-white:hover {
+        transform: translateY(-10px);
+        border-color: var(--accent-glow);
+        background: rgba(15, 23, 42, 0.8) !important;
+        box-shadow: 0 15px 30px rgba(6, 182, 212, 0.2);
+    }
+
+    .top-feature h4 {
+        color: var(--accent-glow);
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+    }
+
+    .top-feature span {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+    }
+
+    /* --- CONTENT & UTILS --- */
+    #abc {
+        background: rgba(255, 255, 255, 0.01);
+        border-top: 1px solid var(--glass-border);
+        border-bottom: 1px solid var(--glass-border);
+        padding: 60px 0;
+    }
+
+    .btn-outline-light, .btn-outline-primary {
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        transition: all 0.3s;
+    }
+
+    .btn-outline-primary {
+        border-color: var(--accent-primary);
+        color: var(--accent-primary);
+    }
+
+    .btn-outline-primary:hover {
+        background: var(--accent-primary);
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
+    }
+
+    /* --- DATATABLES OVERRIDE --- */
+    .table {
+        color: var(--text-main) !important;
+        background-color: transparent !important;
+    }
+    .table thead th {
+        background-color: rgba(139, 92, 246, 0.15) !important;
+        color: var(--accent-glow) !important;
+        border-bottom: 1px solid var(--glass-border) !important;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+    }
+    .table td {
+        border-color: rgba(255,255,255,0.05) !important;
+    }
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter,
+    .dataTables_wrapper .dataTables_info,
+    .dataTables_wrapper .dataTables_paginate {
+        color: var(--text-muted) !important;
+    }
+    .page-link {
+        background: transparent;
+        border: 1px solid var(--glass-border);
+        color: var(--text-main);
+    }
+    .page-item.active .page-link {
+        background-color: var(--accent-primary);
+        border-color: var(--accent-primary);
+    }
+
+</style>
+
+</head>
+<body>
+
+    <div id="canvas-container">
+        <canvas id="cyber-canvas"></canvas>
+    </div>
+    <div class="scanlines"></div>
+    <div class="vignette"></div>
+
+    <div id="spinner" class="show position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center" style="background: var(--bg-deep); z-index: 9999;">
+        <div class="spinner-border" role="status" style="width: 3rem; height: 3rem; color: var(--accent-glow);"></div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top p-0 px-4">
+        <a href="index.html" class="navbar-brand d-flex align-items-center">
+            <h1 class="m-0"><i class="bi bi-shield-check me-2"></i>CyberCamouflage</h1>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="/myapp/index_get/" class="nav-item nav-link active">Dashboard</a>
+                <a href="/myapp/viewuser_get/#abc" class="nav-item nav-link">Users</a>
+                <a href="/myapp/viewcomplaint_get/#abc" class="nav-item nav-link">Complaints</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Secure Upload</a>
+                    <div class="dropdown-menu border-0 rounded-0 m-0">
+                        <a href="/myapp/admin_view_uploaded_file_get/#abc" class="dropdown-item">Encrypted Files</a>
+                        <a href="/myapp/admin_file_upload_get/#abc" class="dropdown-item">Upload New</a>
+                    </div>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Logs</a>
+                    <div class="dropdown-menu border-0 rounded-0 m-0">
+                        <a href="/myapp/logs_get/#abc" class="dropdown-item">Location Logs</a>
+                        <a href="/myapp/decoy_log_get/#abc" class="dropdown-item">Decoy Logs</a>
+                    </div>
+                </div>
+
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">System Config</a>
+                    <div class="dropdown-menu border-0 rounded-0 m-0">
+                        <a href="/myapp/change_password_get/#abc" class="dropdown-item">Credentials</a>
+                        <a href="/myapp/logout_get/#abc" class="dropdown-item">Terminate Session</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid p-0 wow fadeIn" data-wow-delay="0.1s">
+        <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="carousel-caption">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <div class="badge mb-3 px-3 py-2 rounded-pill" style="background: rgba(139, 92, 246, 0.1); border: 1px solid var(--accent-primary); color: var(--accent-primary); backdrop-filter: blur(10px); letter-spacing: 2px; text-transform: uppercase; font-size: 0.7rem;">
+    <i class="bi bi-shield-lock-fill me-1"></i> Access Granted
+</div>
+                                    <h1 class="display-1 mb-4 animated slideInDown">CyberVeil</h1>
+                                    <p class="fs-4 text-white-50">Advanced Steganographic Concealment & Threat Mitigation Protocol</p>
+                                    <a href="#abc" class="btn btn-outline-light rounded-0 py-3 px-5 mt-3">Initiate Scan</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-caption">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <div class="badge mb-3 px-3 py-2 rounded-pill" style="background: rgba(139, 92, 246, 0.1); border: 1px solid var(--accent-primary); color: var(--accent-primary); backdrop-filter: blur(10px); letter-spacing: 2px; text-transform: uppercase; font-size: 0.7rem;">
+    <i class="bi bi-shield-lock-fill me-1"></i> System Secure
+</div>
+                                    <h1 class="display-1 mb-4 animated slideInDown">Invisible Defense</h1>
+                                    <p class="fs-4 text-white-50">Data obfuscation layer active. Your digital footprint is masked.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid top-feature py-5 pt-lg-0">
+        <div class="container py-5 pt-lg-0">
+            <div class="row gx-4 gy-4">
+                <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="bg-white d-flex align-items-center h-100 px-4 py-4 rounded-3">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-eye-slash fs-1 me-3 text-primary"></i>
+                            <div>
+                                <h4>Deep Concealment</h4>
+                                <span>Steganographic hiding in A/V media.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="bg-white d-flex align-items-center h-100 px-4 py-4 rounded-3">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-incognito fs-1 me-3" style="color: var(--accent-glow)"></i>
+                            <div>
+                                <h4>Identity Masking</h4>
+                                <span>IP/GPS Spoofing & MAC Randomization.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="bg-white d-flex align-items-center h-100 px-4 py-4 rounded-3">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-shield-lock fs-1 me-3 text-primary"></i>
+                            <div>
+                                <h4>Vault Encryption</h4>
+                                <span>AES-256 System-level protection.</span>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="bg-white d-flex align-items-center h-100 px-4 py-4 rounded-3">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-radar fs-1 me-3" style="color: var(--accent-glow)"></i>
+                            <div>
+                                <h4>Intrusion Decoys</h4>
+                                <span>Active honeypots and threat alerting.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-xxl py-5" id="abc">
+        <div class="container">
+            {% block body %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <div class="container-fluid facts my-5 py-5 wow fadeIn" data-wow-delay="0.1s" style="border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); background: rgba(124, 58, 237, 0.03);">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-sm-6 col-lg-4 text-center wow fadeIn" data-wow-delay="0.1s">
+                    <div class="mb-3"><i class="bi bi-bug fs-2 text-white-50"></i></div>
+                    <h1 class="display-4" data-toggle="counter-up">1,234</h1>
+                    <span class="fs-6 text-uppercase text-muted ls-1">Threats Neutralized</span>
+                </div>
+                <div class="col-sm-6 col-lg-4 text-center wow fadeIn" data-wow-delay="0.3s">
+                    <div class="mb-3"><i class="bi bi-activity fs-2 text-white-50"></i></div>
+                    <h1 class="display-4" data-toggle="counter-up">8,405</h1>
+                    <span class="fs-6 text-uppercase text-muted ls-1">Requests Processed</span>
+                </div>
+                <div class="col-sm-6 col-lg-4 text-center wow fadeIn" data-wow-delay="0.5s">
+                    <div class="mb-3"><i class="bi bi-file-earmark-check fs-2 text-white-50"></i></div>
+                    <h1 class="display-4" data-toggle="counter-up">590</h1>
+                    <span class="fs-6 text-uppercase text-muted ls-1">Integrity Reports</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.1s">
+                    <h6 class="text-primary text-uppercase mb-2" style="letter-spacing: 2px;">System Architecture</h6>
+                    <h1 class="display-5 mb-4 text-white">Conceal Data Before It's Visible</h1>
+                    <p class="mb-4 text-white-50">"Your information stays invisible in plain sight. Our system detects, disguises, and defends your digital identity with precision — ensuring safety without disrupting your online experience."</p>
+                    <div class="d-flex align-items-center mt-4">
+                        <a class="btn btn-outline-primary rounded-0 py-3 px-5 me-3" href="">System Status</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    {% block scripts %}
+    {% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/home/lib/wow/wow.min.js"></script>
+    <script src="/static/home/lib/easing/easing.min.js"></script>
+    <script src="/static/home/lib/waypoints/waypoints.min.js"></script>
+    <script src="/static/home/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="/static/home/lib/counterup/counterup.min.js"></script>
+    <script src="/static/home/lib/parallax/parallax.min.js"></script>
+    <script src="/static/home/lib/isotope/isotope.pkgd.min.js"></script>
+    <script src="/static/home/lib/lightbox/js/lightbox.min.js"></script>
+    <script src="/static/home/js/main.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var spinner = function () {
+                setTimeout(function () {
+                    if ($('#spinner').length > 0) {
+                        $('#spinner').removeClass('show');
+                        $('#spinner').fadeOut('slow');
+                    }
+                }, 100);
+            };
+            spinner();
+        });
+    </script>
+    <script>
+        const canvas = document.getElementById('cyber-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particlesArray;
+        let animationId;
+
+        // Resize Canvas
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+
+        // Mouse Interactivity
+        const mouse = {
+            x: null,
+            y: null,
+            radius: 150
+        }
+
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+
+        // Disable mouse interaction when leaving window
+        window.addEventListener('mouseout', () => {
+            mouse.x = undefined;
+            mouse.y = undefined;
+        });
+
+
+        // Create Particle
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x;
+                this.y = y;
+                this.directionX = directionX;
+                this.directionY = directionY;
+                this.size = size;
+                this.color = color;
+            }
+
+            // Draw individual particle
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+
+            // Update particle position
+            update() {
+                // Check if particle is still within canvas
+                if (this.x > canvas.width || this.x < 0) {
+                    this.directionX = -this.directionX;
+                }
+                if (this.y > canvas.height || this.y < 0) {
+                    this.directionY = -this.directionY;
+                }
+
+                // Mouse Collision Detection
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < mouse.radius + this.size) {
+                    if (mouse.x < this.x && this.x < canvas.width - this.size * 10) {
+                        this.x += 2;
+                    }
+                    if (mouse.x > this.x && this.x > this.size * 10) {
+                        this.x -= 2;
+                    }
+                    if (mouse.y < this.y && this.y < canvas.height - this.size * 10) {
+                        this.y += 2;
+                    }
+                    if (mouse.y > this.y && this.y > this.size * 10) {
+                        this.y -= 2;
+                    }
+                }
+
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        // Initialize Particles
+        function init() {
+            particlesArray = [];
+            // Calculate number of particles based on screen size (prevent lag on mobile)
+            let numberOfParticles = (canvas.height * canvas.width) / 12000;
+
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 1) - 0.5; // Speed
+                let directionY = (Math.random() * 1) - 0.5;
+
+                // Color variation: mostly cyan/violet
+                let color = Math.random() > 0.5 ? 'rgba(6, 182, 212, 0.7)' : 'rgba(139, 92, 246, 0.7)';
+
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
+
+        // Connect particles with lines
+        function connect() {
+            let opacityValue = 1;
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +
+                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+
+                    if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+                        opacityValue = 1 - (distance / 20000);
+                        ctx.strokeStyle = 'rgba(124, 58, 237,' + opacityValue + ')'; // Violet lines
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+
+        // Start
+        init();
+        animate();
+    </script>
+</body>
+</html>
+

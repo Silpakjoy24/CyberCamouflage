@@ -1,0 +1,407 @@
+{#{% extends 'adminpages/aindex.html' %}#}
+{#{% block body %}#}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#  <meta charset="UTF-8">#}
+{#  <title>admin view uloaded file</title>#}
+{#  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">#}
+{#  <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">#}
+{#  <style>#}
+{#    .img-thumbnail {#}
+{#      width: 50px;#}
+{#      height: 50px;#}
+{#    }#}
+{#    .filter-box {#}
+{#      margin-bottom: 20px;#}
+{#    }#}
+{#   <style>#}
+{#    .img-thumbnail {#}
+{#      width: 50px;#}
+{#      height: 50px;#}
+{#    }#}
+{#    .filter-box {#}
+{#      margin-bottom: 20px;#}
+{#    }#}
+{#/* --- Styles for the Table Container --- */#}
+{#body {#}
+{#        /* Assuming 'aindex.html' contains the body background image.#}
+{#           If not, this style needs to be here or in the base template. */#}
+{#        color: #fff; /* Ensure text is white */#}
+{#    }#}
+{##}
+{#    /* 2. Style the Container to mimic the translucent login card */#}
+{#    .container.mt-5 {#}
+{#        /* Translucent dark background, similar to the login-container */#}
+{#        background: rgba(0, 0, 0, 0.4);#}
+{#        backdrop-filter: blur(8px);#}
+{#        -webkit-backdrop-filter: blur(8px);#}
+{#        border: 1px solid rgba(255, 255, 255, 0.15);#}
+{#        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);#}
+{#        border-radius: 20px;#}
+{#        padding: 30px;#}
+{#    }#}
+{##}
+{#    /* 3. Style the Heading to use a bright 'CyberVeil' color */#}
+{#    .container h2.mb-4 {#}
+{#        color: #00ff7f; /* Luminous green */#}
+{#        text-shadow: 0 0 8px rgba(0, 255, 127, 0.6); /* Subtle glow */#}
+{#        font-weight: 600;#}
+{#        margin-bottom: 30px !important;#}
+{#    }#}
+{##}
+{#    /* 4. Style the Table itself */#}
+{#    #registrationTable {#}
+{#        --bs-table-bg: transparent;#}
+{#        --bs-table-color: #f0f0f0; /* Light text color */#}
+{#        border: 1px solid rgba(0, 255, 127, 0.3); /* Thin green border for definition */#}
+{#        border-radius: 10px;#}
+{#        overflow: hidden;#}
+{#    }#}
+{##}
+{#    /* 5. Table Header Styling */#}
+{#    #registrationTable thead {#}
+{#        background-color: rgba(0, 64, 0, 0.7); /* Dark green header */#}
+{#        color: #fff;#}
+{#    }#}
+{##}
+{#    /* 6. Table Cells (th and td) */#}
+{#    #registrationTable th,#}
+{#    #registrationTable td {#}
+{#        border-color: rgba(0, 255, 127, 0.2); /* Light green cell separators */#}
+{#        vertical-align: middle;#}
+{#        padding: 12px;#}
+{#    }#}
+{##}
+{#    /* 7. Table Body Rows */#}
+{#    #registrationTable tbody tr {#}
+{#        background-color: rgba(255, 255, 255, 0.05); /* Very slight translucent background */#}
+{#        transition: background-color 0.3s ease;#}
+{#    }#}
+{##}
+{#    /* 8. Striped Rows */#}
+{#    #registrationTable .table-striped > tbody > tr:nth-of-type(odd) {#}
+{#        background-color: rgba(0, 128, 0, 0.1); /* Lighter translucent green for stripes */#}
+{#    }#}
+{##}
+{#    /* 9. Hover Effect */#}
+{#    #registrationTable tbody tr:hover {#}
+{#        background-color: rgba(0, 255, 127, 0.15); /* Bright translucent green on hover */#}
+{#    }#}
+{##}
+{#    /* 10. Status Button Styling (Optional: to match the style) */#}
+{#    .btn-warning, .btn-danger {#}
+{#        /* Override Bootstrap defaults for a more solid, stylized look */#}
+{#        border-radius: 5px;#}
+{#        font-weight: 500;#}
+{#    }#}
+{##}
+{#    /* Ensure thumbnail images are still styled correctly */#}
+{#    .img-thumbnail {#}
+{#      width: 50px;#}
+{#      height: 50px;#}
+{#      object-fit: cover; /* Ensures images look good */#}
+{#      border: 1px solid #00ff7f; /* Green border for the photo */#}
+{#      background-color: transparent;#}
+{#    }#}
+{#  </style>#}
+{##}
+{#</head>#}
+{#<body>#}
+{##}
+{##}
+{#  <div class="container mt-5">#}
+{#    <h2 class="mb-4">Uploaded file</h2>#}
+{##}
+{#    <!-- Date Filter Inputs -->#}
+{##}
+{#  <div class="row mb-3">#}
+{#      <div class="col-md-4">#}
+{#        <label for="fromDate" class="form-label">From Date</label>#}
+{#        <input type="date" id="fromDate" class="form-control">#}
+{#      </div>#}
+{#      <div class="col-md-4">#}
+{#        <label for="toDate" class="form-label">To Date</label>#}
+{#        <input type="date" id="toDate" class="form-control">#}
+{#      </div>#}
+{#    </div>#}
+{#    <div class="row filter-box">#}
+{#      <div class="col-md-4">#}
+{#        <label>From Date:</label>#}
+{#        <input type="date" id="minDate" class="form-control">#}
+{#      </div>#}
+{#      <div class="col-md-4">#}
+{#        <label>To Date:</label>#}
+{#        <input type="date" id="maxDate" class="form-control">#}
+{#      </div>#}
+{#    </div>#}
+{##}
+{#    <table id="complaintTable" class="table table-striped table-bordered">#}
+{#      <thead>#}
+{#        <tr>#}
+{#          <th>#</th>#}
+{#            <th>Date</th>#}
+{##}
+{#          <th>Uploaded file</th>#}
+{#          <th>User</th>#}
+{#          <th>Result</th>#}
+{#            <th></th>#}
+{#        </tr>#}
+{#      </thead>#}
+{#      <tbody>#}
+{#        <!-- Sample Data Rows -->#}
+{#        {% for i in data %}#}
+{#        <tr>#}
+{#          <td>{{ forloop.counter }}</td>#}
+{#            <td>{{ i.date|date:'Y-m-d' }}</td>#}
+{##}
+{#          <td>{{ i.file }}</td>#}
+{#          <td>{{ i.name }}</td>#}
+{#          <td>{{ i.result }}</td>#}
+{#          <td>#}
+{#            <button class="btn btn-sm btn-primary">verified</button>#}
+{#            <button class="btn btn-sm btn-danger">not verified</button>#}
+{#          </td>#}
+{#        </tr>#}
+{#        {% endfor %}#}
+{#        <!-- More rows as needed -->#}
+{#      </tbody>#}
+{#    </table>#}
+{#  </div>#}
+{##}
+{#  <!-- Scripts -->#}
+{#  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>#}
+{#  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>#}
+{#  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>#}
+{#{% block scripts %}#}
+{#          <script>#}
+{#    // Extend DataTables with custom date filtering#}
+{#    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {#}
+{#      const min = document.getElementById('fromDate').value;#}
+{#      const max = document.getElementById('toDate').value;#}
+{#      const dateStr = data[1]; // Date is column index 1#}
+{#      const date = new Date(dateStr);#}
+{##}
+{#      const minDate = min ? new Date(min) : null;#}
+{#      const maxDate = max ? new Date(max) : null;#}
+{##}
+{#      if ((!minDate || date >= minDate) && (!maxDate || date <= maxDate)) {#}
+{#        return true;#}
+{#      }#}
+{#      return false;#}
+{#    });#}
+{##}
+{#    // Initialize DataTable and bind filter events#}
+{#    $(document).ready(function () {#}
+{#      const table = $('#complaintTable').DataTable({#}
+{#        pageLength: 5#}
+{#      });#}
+{##}
+{#      $('#fromDate, #toDate').on('change', function () {#}
+{#        table.draw();#}
+{#      });#}
+{#    });#}
+{#  </script>#}
+{##}
+{#  <script>#}
+{#    // Custom filtering function for date range#}
+{#    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {#}
+{#      let min = $('#minDate').val();#}
+{#      let max = $('#maxDate').val();#}
+{#      let dob = data[3]; // Index of DOB column#}
+{##}
+{#      if (!min && !max) return true;#}
+{##}
+{#      const date = new Date(dob);#}
+{#      const minDate = min ? new Date(min) : null;#}
+{#      const maxDate = max ? new Date(max) : null;#}
+{##}
+{#      if (#}
+{#        (!minDate || date >= minDate) &&#}
+{#        (!maxDate || date <= maxDate)#}
+{#      ) {#}
+{#        return true;#}
+{#      }#}
+{#      return false;#}
+{#    });#}
+{##}
+{#    $(document).ready(function () {#}
+{#      const table = $('#registrationTable').DataTable();#}
+{##}
+{#      // Event listeners for date range filtering#}
+{#      $('#minDate, #maxDate').on('change', function () {#}
+{#        table.draw();#}
+{#      });#}
+{#    });#}
+{#  </script>#}
+{#{% endblock %}#}
+{#{% endblock %}#}
+{#</body>#}
+{#</html>#}
+
+
+
+{% extends 'adminpages/aindex.html' %}
+
+{% block body %}
+<style>
+    /* --- CUSTOM TERMINAL INPUTS --- */
+    .cyber-input {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid var(--glass-border) !important;
+        color: var(--accent-glow) !important;
+        border-radius: 4px;
+        font-size: 0.85rem;
+    }
+    .cyber-input:focus {
+        border-color: var(--accent-primary) !important;
+        box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+    }
+
+    /* --- GLASSMORPHISM TABLE --- */
+    .feature-card {
+        background: var(--glass-bg) !important;
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid var(--glass-border);
+    }
+
+    .table { color: var(--text-main) !important; }
+
+    .table thead th {
+        background: rgba(139, 92, 246, 0.1) !important;
+        color: var(--accent-glow) !important;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 1.5px;
+        border-bottom: 1px solid var(--accent-primary) !important;
+        padding: 15px !important;
+    }
+
+    .table tbody td {
+        background: transparent !important;
+        border-color: rgba(255, 255, 255, 0.05) !important;
+        vertical-align: middle;
+        font-size: 0.8rem; /* Professional small font */
+    }
+
+    /* File Link Styling */
+    .file-link {
+        color: var(--accent-primary);
+        text-decoration: none;
+        transition: 0.3s;
+        font-family: 'Courier New', monospace;
+    }
+    .file-link:hover {
+        color: var(--accent-glow);
+        text-shadow: 0 0 8px var(--accent-glow);
+    }
+
+    /* Result Badge */
+    .result-tag {
+        background: rgba(6, 182, 212, 0.1);
+        border: 1px solid var(--accent-glow);
+        color: var(--accent-glow);
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="mb-5 wow fadeInUp" data-wow-delay="0.1s">
+        <h6 class="text-primary text-uppercase mb-2" style="letter-spacing: 3px; font-weight: 700;">Data Intelligence</h6>
+        <h1 class="display-6 text-white mb-0">
+            <i class="bi bi-folder-symlink me-3 text-info"></i>Encapsulated Vault Archive
+        </h1>
+        <div class="mt-2" style="width: 60px; height: 3px; background: var(--accent-glow);"></div>
+    </div>
+
+    <div class="row mb-4 gx-3 wow fadeInUp" data-wow-delay="0.2s">
+        <div class="col-md-3">
+            <label class="small text-muted mb-1 text-uppercase">Start Epoch</label>
+            <input type="date" id="fromDate" class="form-control cyber-input">
+        </div>
+        <div class="col-md-3">
+            <label class="small text-muted mb-1 text-uppercase">End Epoch</label>
+            <input type="date" id="toDate" class="form-control cyber-input">
+        </div>
+    </div>
+
+    <div class="table-responsive feature-card p-4 rounded-3 wow fadeInUp" data-wow-delay="0.3s">
+        <table id="complaintTable" class="table table-hover w-100">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Archive Date</th>
+                    <th>File Identifier</th>
+                    <th>Source Node</th>
+                    <th>Analysis Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data %}
+                <tr>
+                    <td class="text-muted">{{ forloop.counter }}</td>
+                    <td class="text-white">{{ i.date|date:'Y-m-d' }}</td>
+
+                    <td>
+                        <a href="/myapp/download_encrypted_file/{{ i.id }}" class="file-link">
+                                    <i class="bi bi-file-earmark-lock2 me-2"></i> Click
+                                </a>
+{#                        <a href="{{ i.file }}" class="file-link">#}
+{#                            <i class="bi bi-file-earmark-lock2 me-2"></i>#}
+{#                        </a>#}
+                    </td>
+                    <td>
+                        <span class="text-info"><i class="bi bi-cpu me-1"></i>{{ i.name }}</span>
+                    </td>
+                    <td>
+                        <span class="result-tag">{{ i.result }}</span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% block scripts %}
+<script>
+    // DataTable Date Filtering
+    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+        const min = $('#fromDate').val();
+        const max = $('#toDate').val();
+        const dateStr = data[1];
+        const date = new Date(dateStr);
+        const minDate = min ? new Date(min) : null;
+        const maxDate = max ? new Date(max) : null;
+
+        if ((!minDate || date >= minDate) && (!maxDate || date <= maxDate)) {
+            return true;
+        }
+        return false;
+    });
+
+    $(document).ready(function () {
+        const table = $('#complaintTable').DataTable({
+            "pageLength": 10,
+            "language": {
+                "search": "Filter Archive:",
+                "lengthMenu": "Show _MENU_ Units",
+                "paginate": {
+                    "next": "→",
+                    "previous": "←"
+                }
+            }
+        });
+
+        $('#fromDate, #toDate').on('change', function () {
+            table.draw();
+        });
+    });
+</script>
+{% endblock %}
+
+{% endblock %}

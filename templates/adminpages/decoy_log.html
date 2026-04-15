@@ -1,0 +1,327 @@
+
+{#{% extends 'adminpages/aindex.html' %}#}
+{#{% block body %}#}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#  <meta charset="UTF-8">#}
+{#  <title>Registration Data Table</title>#}
+{#  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">#}
+{#  <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">#}
+{#  <style>#}
+{#    .img-thumbnail {#}
+{#      width: 50px;#}
+{#      height: 50px;#}
+{#    }#}
+{#    .filter-box {#}
+{#      margin-bottom: 20px;#}
+{#    }#}
+{#/* --- Styles for the Table Container --- */#}
+{#body {#}
+{#        /* Assuming 'aindex.html' contains the body background image.#}
+{#           If not, this style needs to be here or in the base template. */#}
+{#        color: #fff; /* Ensure text is white */#}
+{#    }#}
+{##}
+{#    /* 2. Style the Container to mimic the translucent login card */#}
+{#    .container.mt-5 {#}
+{#        /* Translucent dark background, similar to the login-container */#}
+{#        background: rgba(0, 0, 0, 0.4);#}
+{#        backdrop-filter: blur(8px);#}
+{#        -webkit-backdrop-filter: blur(8px);#}
+{#        border: 1px solid rgba(255, 255, 255, 0.15);#}
+{#        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);#}
+{#        border-radius: 20px;#}
+{#        padding: 30px;#}
+{#    }#}
+{##}
+{#    /* 3. Style the Heading to use a bright 'CyberVeil' color */#}
+{#    .container h2.mb-4 {#}
+{#        color: #00ff7f; /* Luminous green */#}
+{#        text-shadow: 0 0 8px rgba(0, 255, 127, 0.6); /* Subtle glow */#}
+{#        font-weight: 600;#}
+{#        margin-bottom: 30px !important;#}
+{#    }#}
+{##}
+{#    /* 4. Style the Table itself */#}
+{#    #registrationTable {#}
+{#        --bs-table-bg: transparent;#}
+{#        --bs-table-color: #f0f0f0; /* Light text color */#}
+{#        border: 1px solid rgba(0, 255, 127, 0.3); /* Thin green border for definition */#}
+{#        border-radius: 10px;#}
+{#        overflow: hidden;#}
+{#    }#}
+{##}
+{#    /* 5. Table Header Styling */#}
+{#    #registrationTable thead {#}
+{#        background-color: rgba(0, 64, 0, 0.7); /* Dark green header */#}
+{#        color: #fff;#}
+{#    }#}
+{##}
+{#    /* 6. Table Cells (th and td) */#}
+{#    #registrationTable th,#}
+{#    #registrationTable td {#}
+{#        border-color: rgba(0, 255, 127, 0.2); /* Light green cell separators */#}
+{#        vertical-align: middle;#}
+{#        padding: 12px;#}
+{#    }#}
+{##}
+{#    /* 7. Table Body Rows */#}
+{#    #registrationTable tbody tr {#}
+{#        background-color: rgba(255, 255, 255, 0.05); /* Very slight translucent background */#}
+{#        transition: background-color 0.3s ease;#}
+{#    }#}
+{##}
+{#    /* 8. Striped Rows */#}
+{#    #registrationTable .table-striped > tbody > tr:nth-of-type(odd) {#}
+{#        background-color: rgba(0, 128, 0, 0.1); /* Lighter translucent green for stripes */#}
+{#    }#}
+{##}
+{#    /* 9. Hover Effect */#}
+{#    #registrationTable tbody tr:hover {#}
+{#        background-color: rgba(0, 255, 127, 0.15); /* Bright translucent green on hover */#}
+{#    }#}
+{##}
+{#    /* 10. Status Button Styling (Optional: to match the style) */#}
+{#    .btn-warning, .btn-danger {#}
+{#        /* Override Bootstrap defaults for a more solid, stylized look */#}
+{#        border-radius: 5px;#}
+{#        font-weight: 500;#}
+{#    }#}
+{##}
+{#    /* Ensure thumbnail images are still styled correctly */#}
+{#    .img-thumbnail {#}
+{#      width: 50px;#}
+{#      height: 50px;#}
+{#      object-fit: cover; /* Ensures images look good */#}
+{#      border: 1px solid #00ff7f; /* Green border for the photo */#}
+{#      background-color: transparent;#}
+{#    }#}
+{#  </style>#}
+{#</head>#}
+{#<body>#}
+{##}
+{##}
+{#  <div class="container mt-5">#}
+{#    <h2 class="mb-4">Logs</h2>#}
+{##}
+{##}
+{##}
+{#    <table id="registrationTable" class="table table-striped table-bordered">#}
+{#      <thead>#}
+{#        <tr>#}
+{#          <th>#</th>#}
+{#          <th>Date</th>#}
+{#          <th>IP</th>#}
+{#          <th>Result</th>#}
+{##}
+{#          <th>Action</th> <!-- New column for Delete -->#}
+{#        </tr>#}
+{#      </thead>#}
+{#      <tbody>#}
+{#       {% for i in data %}#}
+{#        <tr>#}
+{#          <td>{{ forloop.counter }}</td>#}
+{#          <td>{{ i.date }}</td>#}
+{#          <td>{{ i.ip }}</td>#}
+{#          <td>{{ i.result }}</td>#}
+{##}
+{#          <td><img src="{{ i.photo }}" class="img-thumbnail" /></td>#}
+{#          <td>#}
+{#            {% if i.status == "pending" %}#}
+{#              <a class="btn btn-warning btn-sm" href="/myapp/approve_user/{{ i.id }}">Accept</a>#}
+{#              <a class="btn btn-danger btn-sm mt-2" href="/myapp/reject_user/{{ i.id }}">Reject</a>#}
+{#            {% elif i.status == 'rejected'%}#}
+{#              {{ i.status }}#}
+{#            {% else %}#}
+{#              {{ i.status }}#}
+{#            {% endif %}#}
+{#          </td>#}
+{#          <td>#}
+{#            <a class="btn btn-outline-danger btn-sm"#}
+{#               href="/myapp/delete_user/{{ i.id }}"#}
+{#               onclick="return confirm('Are you sure you want to delete this entry?');">#}
+{#               Delete#}
+{#            </a>#}
+{#          </td>#}
+{#        </tr>#}
+{#       {% endfor %}#}
+{#      </tbody>#}
+{#    </table>#}
+{#  </div>#}
+{##}
+{##}
+{#  <!-- Scripts -->#}
+{#  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>#}
+{#  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>#}
+{#  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>#}
+{##}
+{#{% block scripts %}#}
+{#  <script>#}
+{#    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {#}
+{#      let min = $('#minDate').val();#}
+{#      let max = $('#maxDate').val();#}
+{#      let dob = data[3]; // Index of DOB column#}
+{##}
+{#      if (!min && !max) return true;#}
+{##}
+{#      const date = new Date(dob);#}
+{#      const minDate = min ? new Date(min) : null;#}
+{#      const maxDate = max ? new Date(max) : null;#}
+{##}
+{#      if (#}
+{#        (!minDate || date >= minDate) &&#}
+{#        (!maxDate || date <= maxDate)#}
+{#      ) {#}
+{#        return true;#}
+{#      }#}
+{#      return false;#}
+{#    });#}
+{##}
+{#    $(document).ready(function () {#}
+{#      const table = $('#registrationTable').DataTable();#}
+{##}
+{#      // Event listeners for date range filtering#}
+{#      $('#minDate, #maxDate').on('change', function () {#}
+{#        table.draw();#}
+{#      });#}
+{#    });#}
+{##}
+{#   <script>#}
+{#    $(document).ready(function () {#}
+{#      $('#registrationTable').DataTable();#}
+{#    });#}
+{#  </script>#}
+{#{% endblock %}#}
+{#{% endblock %}#}
+{##}
+{#</body>#}
+{#</html>#}
+
+
+
+{% extends 'adminpages/aindex.html' %}
+
+{% block body %}
+<style>
+    /* --- LOG TERMINAL CONTAINER --- */
+    .feature-card {
+        background: var(--glass-bg) !important;
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    /* --- CYBER TABLE STYLING --- */
+    .table {
+        color: var(--text-main) !important;
+    }
+
+    .table thead th {
+        background: rgba(139, 92, 246, 0.1) !important; /* Translucent Violet */
+        color: var(--accent-glow) !important;
+        text-transform: uppercase;
+        font-size: 0.7rem; /* Professional Small Font */
+        letter-spacing: 2px;
+        border-bottom: 1px solid var(--accent-primary) !important;
+        padding: 15px !important;
+    }
+
+    .table tbody td {
+        background: transparent !important;
+        border-color: rgba(255, 255, 255, 0.05) !important;
+        vertical-align: middle;
+        font-size: 0.8rem;
+        font-family: 'Courier New', monospace; /* Code-like font for logs */
+    }
+
+    /* IP Address Styling */
+    .ip-address {
+        color: var(--accent-glow);
+        background: rgba(6, 182, 212, 0.05);
+        padding: 2px 8px;
+        border-radius: 4px;
+        border: 1px solid rgba(6, 182, 212, 0.2);
+    }
+
+    /* Result Status Styling */
+    .log-result {
+        color: var(--text-main);
+        border-left: 2px solid var(--accent-primary);
+        padding-left: 10px;
+    }
+
+    /* --- DATATABLES SEARCH OVERRIDE --- */
+    .dataTables_wrapper .dataTables_filter input {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid var(--glass-border) !important;
+        color: var(--accent-glow) !important;
+        font-size: 0.8rem;
+        border-radius: 4px;
+        padding: 5px 15px;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="mb-5 wow fadeInUp" data-wow-delay="0.1s">
+        <h6 class="text-primary text-uppercase mb-2" style="letter-spacing: 4px; font-weight: 700;">System Surveillance</h6>
+        <h1 class="display-6 text-white mb-0">
+            <i class="bi bi-terminal-split me-3 text-info"></i>Audit Log Trace | Event History
+        </h1>
+        <div class="mt-2" style="width: 60px; height: 3px; background: var(--accent-primary);"></div>
+    </div>
+
+    <div class="table-responsive feature-card p-4 rounded-3 wow fadeInUp" data-wow-delay="0.3s">
+        <table id="registrationTable" class="table table-striped w-100">
+            <thead>
+                <tr>
+                    <th>Seq_ID</th>
+                    <th>Timestamp</th>
+                    <th>Source_IP</th>
+                    <th>Protocol_Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data %}
+                <tr>
+                    <td class="text-muted fw-bold">{{ forloop.counter }}</td>
+                    <td class="text-white small">{{ i.date }}</td>
+                    <td>
+                        <span class="ip-address">
+                            <i class="bi bi-broadcast me-1"></i>{{ i.ip }}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="log-result">
+                            <i class="bi bi-chevron-right me-1 small text-primary"></i>{{ i.user_agent }}
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <p class="text-center text-muted mt-4 small wow fadeIn" data-wow-delay="0.5s">
+        <i class="bi bi-shield-shaded me-1"></i> All login attempts and file transactions are monitored and immutable.
+    </p>
+</div>
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        $('#registrationTable').DataTable({
+            "pageLength": 10,
+            "order": [[1, "desc"]], // Show newest logs first
+            "language": {
+                "search": "Trace Event:",
+                "lengthMenu": "Show _MENU_ Entries",
+                "info": "Displaying _START_ to _END_ of _TOTAL_ security events"
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+{% endblock %}

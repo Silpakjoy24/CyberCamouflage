@@ -1,0 +1,350 @@
+{#{% extends 'userpages/uindex.html' %}#}
+{#{% block body %}#}
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#  <meta charset="UTF-8">#}
+{#  <title>Edit profile</title>#}
+{#  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">#}
+{##}
+{#</head>#}
+{#<body>#}
+{#  <div class="container">#}
+{#    <h2 class="mb-4">Edit profile</h2>#}
+{#    <form action="/myapp/edit_user_post/" method="post" enctype="multipart/form-data">#}
+{#    {% csrf_token %}#}
+{##}
+{#        <input type="hidden" name="id" value="{{ data.id }}">#}
+{#      <div class="row mb-3">#}
+{#        <label for="name" class="col-sm-4 ">Full Name</label>#}
+{#        <div class="col-sm-8">#}
+{#          <input type="text" class="form-control" id="name" name="name" value="{{ data.name }}" required>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      <div class="row mb-3">#}
+{#        <label class="col-sm-4 ">Gender</label>#}
+{#        <div class="col-sm-8">#}
+{#          <div class="form-check form-check-inline">#}
+{#            <input class="form-check-input" {% if data.gender == 'male' %} checked {% endif %} type="radio" name="gender" value="male" id="male" required>#}
+{#            <label class="form-check-label" for="male">Male</label>#}
+{#          </div>#}
+{#          <div class="form-check form-check-inline">#}
+{#            <input class="form-check-input" {% if data.gender == 'female' %} checked {% endif %} type="radio" name="gender" value="female" id="female" required>#}
+{#            <label class="form-check-label" for="female">Female</label>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      <div class="row mb-3">#}
+{#        <label for="dob" class="col-sm-4 ">Date of Birth</label>#}
+{#        <div class="col-sm-8">#}
+{#          <input type="date" class="form-control" name="dob" id="dob" value="{{ data.dob | date:'Y-m-d'}}" required>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      <div class="row mb-3">#}
+{#        <label for="email" class="col-sm-4 ">Email address</label>#}
+{#        <div class="col-sm-8">#}
+{#          <input type="email" class="form-control" name="email" id="email" value="{{ data.email }}" required>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      <div class="row mb-3">#}
+{#        <label for="phone" class="col-sm-4 ">Phone Number</label>#}
+{#        <div class="col-sm-8">#}
+{#          <input type="tel" pattern="[0-9]{10}" name="phone" class="form-control" id="phone" value="{{ data.phone }}" required>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      <div class="row mb-3">#}
+{#        <label for="place" class="col-sm-4 ">Place</label>#}
+{#        <div class="col-sm-8">#}
+{#          <input type="text" class="form-control" name="place" id="place" value="{{ data.place }}" required>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      <div class="row mb-3">#}
+{#        <label for="city" class="col-sm-4 ">district</label>#}
+{#        <div class="col-sm-8">#}
+{#          <input type="text" class="form-control" name="district" id="city" value="{{ data.district }}" required>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      <div class="row mb-3">#}
+{#        <label for="state" class="col-sm-4 ">State</label>#}
+{#        <div class="col-sm-8">#}
+{#          <input type="text" class="form-control" name="state" id="state" value="{{ data.state }}" required>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      <div class="row mb-3">#}
+{#        <label for="pincode" class="col-sm-4 ">Pincode</label>#}
+{#        <div class="col-sm-8">#}
+{#          <input type="text" pattern="[0-9]{6}" name="pincode" class="form-control" id="pincode" value="{{ data.pin }}" required>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      <div class="row mb-3">#}
+{#        <label for="photo" class="col-sm-4 ">Upload Photo</label>#}
+{#        <div class="col-sm-8">#}
+{#            <img src="{{ data.photo }}" height="100" width="100">#}
+{#          <input type="file" class="form-control" name="photo" id="photo" accept="image/*" >#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{##}
+{##}
+{#      <div class="row mb-3">#}
+{#        <div class="offset-sm-4 col-sm-8">#}
+{#          <button type="submit" class="btn btn-primary">Edit</button>#}
+{#        </div>#}
+{#      </div>#}
+{#    </form>#}
+{#  </div>#}
+{#  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>#}
+{#</body>#}
+{#</html>#}
+{##}
+{##}
+{#{% endblock %}#}
+
+
+
+{% extends 'userpages/uindex.html' %}
+
+{% block body %}
+<style>
+    /* --- TERMINAL OVERRIDES --- */
+    :root {
+        --cyber-bg: #0f172a;
+        --cyber-card: #1e293b;
+        --cyber-cyan: #06b6d4;
+        --cyber-violet: #8b5cf6;
+        --cyber-border: rgba(6, 182, 212, 0.2);
+    }
+
+    .edit-terminal {
+        max-width: 900px;
+        margin: 50px auto;
+        background: var(--cyber-card);
+        border: 1px solid var(--cyber-border);
+        box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        display: flex;
+        flex-wrap: wrap;
+        overflow: hidden;
+    }
+
+    /* --- LEFT SIDE: IDENTITY PREVIEW --- */
+    .preview-panel {
+        flex: 1;
+        background: rgba(15, 23, 42, 0.8);
+        padding: 40px;
+        text-align: center;
+        border-right: 1px solid var(--cyber-border);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .current-photo-frame {
+        width: 150px;
+        height: 150px;
+        border: 2px solid var(--cyber-cyan);
+        padding: 5px;
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .current-photo-frame::before {
+        content: "CURRENT_ID";
+        position: absolute;
+        top: -25px;
+        left: 0;
+        font-family: monospace;
+        font-size: 10px;
+        color: var(--cyber-cyan);
+    }
+
+    .current-photo-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* --- RIGHT SIDE: INPUT TERMINAL --- */
+    .form-panel {
+        flex: 2;
+        padding: 40px;
+    }
+
+    .form-panel h2 {
+        font-weight: 800;
+        color: #fff;
+        letter-spacing: 2px;
+        margin-bottom: 30px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        padding-bottom: 10px;
+    }
+
+    /* Cyber Inputs */
+    .cyber-label {
+        font-size: 11px;
+        color: var(--cyber-violet);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .cyber-input {
+        background: rgba(15, 23, 42, 0.6) !important;
+        border: 1px solid #334155 !important;
+        color: #fff !important;
+        border-radius: 2px;
+        padding: 10px;
+        margin-bottom: 20px;
+        font-size: 14px;
+    }
+
+    .cyber-input:focus {
+        border-color: var(--cyber-cyan) !important;
+        box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+        outline: none;
+    }
+
+    /* Radio Styling */
+    .cyber-radio {
+        color: #cbd5e1;
+        font-size: 14px;
+        margin-right: 15px;
+        cursor: pointer;
+    }
+
+    .cyber-radio input {
+        accent-color: var(--cyber-cyan);
+        margin-right: 5px;
+    }
+
+    /* --- ACTIONS --- */
+    .btn-commit {
+        background: transparent;
+        color: var(--cyber-cyan);
+        border: 1px solid var(--cyber-cyan);
+        padding: 12px 30px;
+        width: 100%;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-family: monospace;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+    .btn-commit:hover {
+        background: var(--cyber-cyan);
+        color: var(--cyber-bg);
+        box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+    }
+
+    .form-grid-inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    .full-row { grid-column: span 2; }
+</style>
+
+<div class="container py-4">
+    <div class="edit-terminal wow fadeIn">
+
+        <div class="preview-panel">
+            <div class="current-photo-frame">
+                <img src="{{ data.photo }}" alt="Current ID">
+            </div>
+            <h4 class="text-white mb-1">{{ data.name }}</h4>
+            <p class="text-muted small font-monospace">ACCESS_UID: {{ data.id }}</p>
+            <div class="mt-4 p-3 border border-secondary rounded bg-dark" style="font-size: 11px; color: #64748b; font-family: monospace;">
+                <i class="bi bi-info-circle me-1"></i> Ensure all signal contacts are valid before committing changes to the node.
+            </div>
+        </div>
+
+        <div class="form-panel">
+            <h2>MOD_IDENTITY_PARAMS</h2>
+
+            <form action="/myapp/edit_user_post/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ data.id }}">
+
+                <div class="form-grid-inner">
+                    <div class="full-row">
+                        <label class="cyber-label">Legal Identity Name</label>
+                        <input type="text" class="form-control cyber-input" name="name" value="{{ data.name }}" required>
+                    </div>
+
+                    <div class="full-row mb-3">
+                        <label class="cyber-label">Classification</label>
+                        <label class="cyber-radio">
+                            <input type="radio" name="gender" value="male" {% if data.gender == 'male' %} checked {% endif %} required> Male
+                        </label>
+                        <label class="cyber-radio">
+                            <input type="radio" name="gender" value="female" {% if data.gender == 'female' %} checked {% endif %} required> Female
+                        </label>
+                    </div>
+
+                    <div>
+                        <label class="cyber-label">Origin Date</label>
+                        <input type="date" class="form-control cyber-input" name="dob" value="{{ data.dob | date:'Y-m-d'}}" required>
+                    </div>
+
+                    <div>
+                        <label class="cyber-label">Signal Contact</label>
+                        <input type="tel" pattern="[0-9]{10}" name="phone" class="form-control cyber-input" value="{{ data.phone }}" required>
+                    </div>
+
+                    <div class="full-row">
+                        <label class="cyber-label">Comm Link (Email)</label>
+                        <input type="email" class="form-control cyber-input" name="email" value="{{ data.email }}" required>
+                    </div>
+
+                    <div>
+                        <label class="cyber-label">Sector (Place)</label>
+                        <input type="text" class="form-control cyber-input" name="place" value="{{ data.place }}" required>
+                    </div>
+                    <div>
+                        <label class="cyber-label">Grid Index (District)</label>
+                        <input type="text" class="form-control cyber-input" name="district" value="{{ data.district }}" required>
+                    </div>
+                    <div>
+                        <label class="cyber-label">State Jurisdiction</label>
+                        <input type="text" class="form-control cyber-input" name="state" value="{{ data.state }}" required>
+                    </div>
+                    <div>
+                        <label class="cyber-label">Zip Cipher (Pincode)</label>
+                        <input type="text" pattern="[0-9]{6}" name="pincode" class="form-control cyber-input" value="{{ data.pin }}" required>
+                    </div>
+
+                    <div class="full-row">
+                        <label class="cyber-label">Update Visual ID Attachment</label>
+                        <input type="file" class="form-control cyber-input" name="photo" accept="image/*">
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn-commit">
+                        <i class="bi bi-cloud-upload me-2"></i> COMMIT_CHANGES_TO_DATABASE
+                    </button>
+                    <a href="/myapp/view_profile/" class="d-block text-center mt-3 text-muted small text-decoration-none hover-info">
+                        Cancel Modification
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
